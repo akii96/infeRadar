@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import json
 import os
+import random
+import time
 from dataclasses import dataclass
 from datetime import date, datetime, timezone
 from email.message import Message
 from typing import Any, Callable
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
@@ -40,13 +42,89 @@ class PullRequestRecord:
         return self.merged_at if self.state == "merged" and self.merged_at else self.opened_at
 
 
-def _default_transport(url: str, headers: dict[str, str]) -> tuple[int, Message, bytes]:
-    request = Request(url, headers=headers)
-    try:
-        with urlopen(request, timeout=30) as response:  # noqa: S310 - public GitHub API.
-            return response.status, response.headers, response.read()
-    except HTTPError as exc:
-        raise GitHubClientError(f"GitHub API request failed: {exc.code} {exc.reason}") from exc
+RETRYABLE_STATUS = frozenset({429, 500, 502, 503, 504})
+DEFAULT_MAX_RETRIES = 5
+
+
+def _is_secondary_rate_limit(status: int, headers: Any, body: bytes) -> bool:
+    """Detect GitHub secondary / abuse rate limiting (returned as HTTP 403)."""
+    if status != 403:
+        return False
+    if headers is not None:
+        if headers.get("Retry-After"):
+            return True
+        if str(headers.get("X-RateLimit-Remaining", "")).strip() == "0":
+            return True
+    text = body.lower()
+    return b"secondary rate limit" in text or b"abuse" in text
+
+
+def _retry_after_seconds(headers: Any) -> float | None:
+    """Seconds to wait from a Retry-After or X-RateLimit-Reset header, if present."""
+    if headers is None:
+        return None
+    retry_after = headers.get("Retry-After")
+    if retry_after:
+        try:
+            return max(0.0, float(retry_after))
+        except (TypeError, ValueError):
+            return None
+    reset = headers.get("X-RateLimit-Reset")
+    if reset:
+        try:
+            return max(0.0, float(reset) - time.time())
+        except (TypeError, ValueError):
+            return None
+    return None
+
+
+def _backoff_delay(attempt: int, base: float = 1.0) -> float:
+    """Exponential backoff with jitter (attempt is 0-based)."""
+    return base * (2 ** attempt) + random.uniform(0.0, 0.5)
+
+
+def _default_transport(
+    url: str,
+    headers: dict[str, str],
+    *,
+    max_retries: int | None = None,
+    sleep: Callable[[float], None] = time.sleep,
+) -> tuple[int, Message, bytes]:
+    """HTTP GET with retry/backoff on transient GitHub errors.
+
+    Retries 429/5xx and 403 secondary-rate-limit responses (and transient network
+    errors), honoring Retry-After / X-RateLimit-Reset when present. A single
+    transient 500 - e.g. after a large request burst trips GitHub's secondary
+    limiter - no longer drops the whole repo.
+    """
+    if max_retries is None:
+        try:
+            max_retries = int(os.environ.get("INFERADAR_GH_MAX_RETRIES", DEFAULT_MAX_RETRIES))
+        except ValueError:
+            max_retries = DEFAULT_MAX_RETRIES
+
+    attempt = 0
+    while True:
+        try:
+            request = Request(url, headers=headers)
+            with urlopen(request, timeout=30) as response:  # noqa: S310 - public GitHub API.
+                return response.status, response.headers, response.read()
+        except HTTPError as exc:
+            body = b""
+            try:
+                body = exc.read() or b""
+            except Exception:  # noqa: BLE001 - body is best-effort, for detection only
+                body = b""
+            retryable = exc.code in RETRYABLE_STATUS or _is_secondary_rate_limit(exc.code, exc.headers, body)
+            if not retryable or attempt >= max_retries:
+                raise GitHubClientError(f"GitHub API request failed: {exc.code} {exc.reason}") from exc
+            delay = _retry_after_seconds(exc.headers) or _backoff_delay(attempt)
+        except URLError as exc:
+            if attempt >= max_retries:
+                raise GitHubClientError(f"GitHub API request failed: {exc.reason}") from exc
+            delay = _backoff_delay(attempt)
+        attempt += 1
+        sleep(min(delay, 60.0))
 
 
 class GitHubClient:

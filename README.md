@@ -199,7 +199,7 @@ ssh-keygen -t ed25519 -f ~/.ssh/inferadar_deploy -N ""
 # this key. (Alternative: an HTTPS remote with a stored token.)
 ```
 
-Schedule with systemd (about an hour after the Actions JSON):
+Schedule with systemd (about 3 hours after the Actions JSON):
 
 ```bash
 sudo cp deploy/inferadar.service deploy/inferadar.timer /etc/systemd/system/
@@ -210,16 +210,16 @@ sudo systemctl enable --now inferadar.timer
 systemctl list-timers inferadar.timer
 ```
 
-Runs are Monday 01:00 and Thursday 13:00 EEST (about an hour after Actions
-generates the JSON). `Persistent=true` catches up a run missed while the server
-was down.
+Runs are Monday 03:00 and Thursday 15:00 EEST (3 hours after Actions generates
+the JSON, leaving margin for the Actions run and any retries). `Persistent=true`
+catches up a run missed while the server was down.
 
 cron alternative:
 
 ```cron
 CRON_TZ=Europe/Athens
-0 1  * * 1  /opt/inferadar/deploy/run-inferadar.sh   # Mon 01:00 EEST
-0 13 * * 4  /opt/inferadar/deploy/run-inferadar.sh   # Thu 13:00 EEST
+0 3  * * 1  /opt/inferadar/deploy/run-inferadar.sh   # Mon 03:00 EEST
+0 15 * * 4  /opt/inferadar/deploy/run-inferadar.sh   # Thu 15:00 EEST
 ```
 
 Manual and custom runs:
