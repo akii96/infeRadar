@@ -1,0 +1,23 @@
+[Unit]
+Description=InfeRadar schedule: Mon 00:00 and Thu 12:00 (EEST)
+
+[Timer]
+# Twice weekly: 12 AM Monday (the Sunday->Monday midnight) and 3.5 days later
+# (Thursday noon, the week's midpoint), pinned to an EET/EEST zone. Replace
+# Europe/Athens with your actual IANA zone.
+#
+# The trailing-timezone form needs systemd >= v252. On older systemd, either set
+# the server's local timezone to your EET/EEST zone and drop the suffix, or use
+# the UTC equivalents below (these reflect the current UTC+3 offset and do NOT
+# auto-adjust for DST):
+#   OnCalendar=Sun *-*-* 21:00:00 UTC   # = Mon 00:00 EEST
+#   OnCalendar=Thu *-*-* 09:00:00 UTC   # = Thu 12:00 EEST
+OnCalendar=Mon *-*-* 00:00:00 Europe/Athens
+OnCalendar=Thu *-*-* 12:00:00 Europe/Athens
+
+# Catch up a run that was missed while the server was down.
+Persistent=true
+Unit=inferadar.service
+
+[Install]
+WantedBy=timers.target

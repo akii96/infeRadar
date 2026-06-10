@@ -85,7 +85,7 @@ def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Generate deterministic LLM inference engine changelog JSON.")
     parser.add_argument("--repo", default="ROCm/aiter", help="GitHub repo in owner/name form.")
     parser.add_argument("--repos-config", type=Path, help="YAML file with list of repos to track.")
-    parser.add_argument("--start", help="Start date in YYYY-MM-DD form. Defaults to 7 days before --end.")
+    parser.add_argument("--start", help="Start date in YYYY-MM-DD form. Defaults to 4 days before --end.")
     parser.add_argument("--end", help="End date in YYYY-MM-DD form. Defaults to today in UTC.")
     parser.add_argument("--output-dir", default="changelogs", type=Path, help="Directory for JSON artifacts.")
     parser.add_argument("--rules", type=Path, help="Optional rules YAML path.")
@@ -101,7 +101,9 @@ def _load_repos_config(config_path: Path) -> list[dict[str, str]]:
 
 def _resolve_window(start_arg: str | None, end_arg: str | None) -> tuple[date, date]:
     end = _parse_date(end_arg) if end_arg else datetime.now(timezone.utc).date()
-    start = _parse_date(start_arg) if start_arg else end - timedelta(days=7)
+    # 4-day lookback to match the twice-weekly cadence (~3.5 days apart) with a
+    # small overlap so no PRs slip through the gap between runs.
+    start = _parse_date(start_arg) if start_arg else end - timedelta(days=4)
     if start > end:
         raise SystemExit("--start must be on or before --end")
     return start, end

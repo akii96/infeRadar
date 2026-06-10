@@ -3,3 +3,8 @@
 .pytest_cache/
 __pycache__/
 *.egg-info/
+
+# Local secrets: gateway key + tokens. Never commit. (*.env.example is kept.)
+.env
+*.env
+deploy/inferadar.env

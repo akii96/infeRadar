@@ -1,0 +1,27 @@
+[Unit]
+Description=InfeRadar: generate changelog JSON then LLM markdown summaries, then commit+push
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+
+# Adjust these three to your install location and the user that owns the clone
+# and holds the git push credential (SSH deploy key) + gateway network access.
+WorkingDirectory=/opt/inferadar
+ExecStart=/opt/inferadar/deploy/run-inferadar.sh
+# User=inferadar
+
+# Gateway key + GitHub token live here (chmod 600), never in the repo or GitHub.
+EnvironmentFile=/etc/inferadar/inferadar.env
+
+# A full pipeline run (4 repos x GitHub fetch + 4 LLM calls) can take a while.
+TimeoutStartSec=3600
+
+# Light hardening. /opt and the user's git/SSH dirs remain writable under "full".
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
