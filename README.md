@@ -19,22 +19,35 @@ next to it, so each `.md` is paired one-to-one with its `.json` source of truth.
 
 ## Architecture
 
-The pipeline runs in two sequential stages on an internal server, because the
-LLM gateway is reachable only inside the company network:
+The pipeline is split across two places, because the LLM gateway is reachable
+only inside the company network, while the ROCm repos block classic personal
+access tokens (only GitHub's own Actions token can read them):
+
+- GitHub Actions (cloud) generates the deterministic JSON for all repos and
+  commits it. Its built-in token reads ROCm fine, and it uses no other secrets.
+- An internal server reads that JSON and writes the markdown digests via the
+  internal gateway, committing only the `.md` files.
+
+The two writers touch disjoint files (Actions writes `*.json`, the server writes
+`*.md`), so they never conflict; the server `git pull --rebase` before pushing.
 
 ```mermaid
 graph TD
-  timer["systemd timer: Mon 00:00 + Thu 12:00 EEST"] --> pull["git pull"]
-  pull --> gen["inferadar -> changelogs/<window>/<repo>.json (x4)"]
-  gen --> sum["inferadar-summarize -> changelogs/<window>/<repo>.md (x4)"]
-  sum -->|"OpenAI-compatible /chat/completions"| gw["Internal LLM gateway"]
-  gw --> commit["git add changelogs/ + sanitized commit"]
-  commit --> push["git push"]
-  push --> repo["GitHub repo: JSON + MD paired per commit"]
+  subgraph cloud [GitHub Actions - Mon 00:00 / Thu 12:00 EEST]
+    a1["inferadar -> changelogs/<window>/<repo>.json (all repos)"] --> a2["commit *.json + push"]
+  end
+  subgraph server [Internal server - about 1h later]
+    s1["git pull --rebase"] --> s2["inferadar-summarize (JSON without .md)"]
+    s2 -->|"OpenAI-compatible /chat/completions"| gw["Internal LLM gateway"]
+    gw --> s3["commit *.md + push (rebase-retry)"]
+  end
+  a2 --> repo["GitHub repo"]
+  repo --> s1
+  s3 --> repo
 ```
 
-The gateway key never leaves the server; GitHub only ever receives the committed
-files. GitHub Actions runs the tests only (no generation, no secrets).
+The gateway key never leaves the server, and GitHub Actions holds no custom
+secrets at all - so nothing sensitive ever reaches the public repo.
 
 ## Local usage (JSON)
 
@@ -57,7 +70,11 @@ inferadar --repo ROCm/aiter --output-dir changelogs
 inferadar --repos-config repos.yaml --start 2026-05-08 --end 2026-05-15 --output-dir changelogs
 ```
 
-Use `GITHUB_TOKEN` or `GH_TOKEN` to raise GitHub API rate limits.
+Use `GITHUB_TOKEN` or `GH_TOKEN` to raise GitHub API rate limits. Note: the ROCm
+org blocks classic PATs, so the client falls back to anonymous access for those
+owners (configurable via `INFERADAR_GITHUB_RAW_OWNERS`, default `ROCm`). Anonymous
+access is rate-limited, so busy ROCm repos like AITER are generated in GitHub
+Actions instead, whose built-in token can read them.
 
 ## Markdown summaries
 
@@ -140,13 +157,24 @@ repos:
     rules: rules/rules-vllm.yaml
 ```
 
-## Scheduled runs on an internal server
+## How the JSON is generated (GitHub Actions)
 
-The gateway is internal-only, so the markdown step cannot run on GitHub's cloud.
-Running the whole pipeline on an always-on internal server keeps JSON and
-markdown sequential and committed together, and keeps the key off GitHub. Your
-laptop/VPN is irrelevant: the server lives inside the network and runs on its own
-schedule whether or not your laptop is on.
+`.github/workflows/generate-changelogs.yml` generates and commits the JSON for
+all repos on schedule (Mon 00:00 / Thu 12:00 EEST) and on manual dispatch. It
+runs in the cloud because the built-in `GITHUB_TOKEN` is an app installation
+token (not a classic PAT), so it can read ROCm repos that block classic PATs; it
+sets `INFERADAR_GITHUB_RAW_OWNERS=""` so every owner is fetched with that token.
+No custom secrets are used. Trigger it manually from the Actions tab (optionally
+with start/end dates or dry_run).
+
+## Markdown stage on an internal server
+
+The gateway is internal-only, so the markdown step runs on an always-on internal
+server. It pulls the JSON that Actions committed, writes the digests via the
+gateway, and commits only the `.md` files. Because Actions writes `*.json` and
+the server writes `*.md`, the two never conflict; the server `git pull --rebase`
+before pushing and retries if Actions pushed concurrently. Your laptop/VPN is
+irrelevant - the server lives inside the network and runs on its own schedule.
 
 Install:
 
@@ -159,7 +187,7 @@ python3 -m venv .venv
 
 sudo mkdir -p /etc/inferadar
 sudo install -m 600 deploy/inferadar.env.example /etc/inferadar/inferadar.env
-sudo "$EDITOR" /etc/inferadar/inferadar.env   # gateway URL/key/model + GITHUB_TOKEN + PYTHON
+sudo "$EDITOR" /etc/inferadar/inferadar.env   # gateway URL/key/model + PYTHON (no GitHub token needed)
 ```
 
 Push credential (recommended: SSH deploy key with write access):
@@ -168,10 +196,10 @@ Push credential (recommended: SSH deploy key with write access):
 ssh-keygen -t ed25519 -f ~/.ssh/inferadar_deploy -N ""
 # Add ~/.ssh/inferadar_deploy.pub to the repo: Settings -> Deploy keys ->
 # "Allow write access". Keep the git remote as SSH. The service User= must own
-# this key. (Alternative: an HTTPS remote with a fine-grained PAT.)
+# this key. (Alternative: an HTTPS remote with a stored token.)
 ```
 
-Schedule with systemd:
+Schedule with systemd (about an hour after the Actions JSON):
 
 ```bash
 sudo cp deploy/inferadar.service deploy/inferadar.timer /etc/systemd/system/
@@ -182,42 +210,44 @@ sudo systemctl enable --now inferadar.timer
 systemctl list-timers inferadar.timer
 ```
 
-Runs are Monday 00:00 and Thursday 12:00 EEST (the Sunday->Monday midnight and
-the 3.5-day midpoint). `Persistent=true` catches up a run missed while the server
+Runs are Monday 01:00 and Thursday 13:00 EEST (about an hour after Actions
+generates the JSON). `Persistent=true` catches up a run missed while the server
 was down.
 
 cron alternative:
 
 ```cron
 CRON_TZ=Europe/Athens
-0 0  * * 1  /opt/inferadar/deploy/run-inferadar.sh   # Mon 00:00 EEST
-0 12 * * 4  /opt/inferadar/deploy/run-inferadar.sh   # Thu 12:00 EEST
+0 1  * * 1  /opt/inferadar/deploy/run-inferadar.sh   # Mon 01:00 EEST
+0 13 * * 4  /opt/inferadar/deploy/run-inferadar.sh   # Thu 13:00 EEST
 ```
 
 Manual and custom runs:
 
 ```bash
-# full pipeline now, without pushing (smoke test):
+# summarize the latest window now, without pushing (smoke test):
 INFERADAR_SKIP_PUSH=1 deploy/run-inferadar.sh
-# custom date window (both dates required):
-deploy/run-inferadar.sh 2026-06-01 2026-06-08
+# a specific window (both dates required):
+deploy/run-inferadar.sh 2026-06-06 2026-06-10
 # trigger the service once and watch logs:
 sudo systemctl start inferadar.service && journalctl -u inferadar.service -f
 ```
 
 ## Security
 
-- The gateway key and `GITHUB_TOKEN` live only in `/etc/inferadar/inferadar.env`
-  (chmod 600) on the server; they are never GitHub secrets and are never printed.
-- Push uses a per-repo SSH deploy key (write) or a fine-grained PAT scoped to
-  this repo only.
-- The cloud CI workflow uses no secrets and only runs tests, so a fork pull
-  request cannot exfiltrate anything.
+- The gateway key lives only in `/etc/inferadar/inferadar.env` (chmod 600) on the
+  server; it is never a GitHub secret and never printed.
+- GitHub Actions uses only the built-in `GITHUB_TOKEN` (no custom secrets), so a
+  fork pull request has nothing to exfiltrate.
+- The server's git push uses a per-repo SSH deploy key (write) or an HTTPS remote
+  with a stored token.
 - Generated markdown has no `@mentions` and links PRs by full URL; commit
   messages are sanitized, so committing never cross-references or notifies a PR.
 
-## Automation (CI)
+## Automation
 
-`.github/workflows/ci.yml` runs `pytest` on push, pull request, and manual
-dispatch. All changelog generation and summarization happen on the internal
-server, not in the cloud.
+- `.github/workflows/generate-changelogs.yml` - generates and commits the JSON
+  for all repos on schedule and manual dispatch, using only the built-in token.
+- `.github/workflows/ci.yml` - runs `pytest` on push, pull request, and dispatch.
+
+Markdown summarization runs on the internal server (above), not in the cloud.

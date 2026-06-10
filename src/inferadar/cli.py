@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -23,6 +24,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.repos_config:
         repos = _load_repos_config(args.repos_config)
         output_paths = []
+        successes = 0
+        failures = 0
         for repo_entry in repos:
             repo_name = repo_entry["name"]
             repo_github = repo_entry["github"]
@@ -30,12 +33,22 @@ def main(argv: list[str] | None = None) -> int:
 
             repo_classifier = Classifier.from_yaml_file(Path(repo_rules)) if repo_rules else classifier
 
-            artifact = _generate_artifact(
-                repo=repo_github,
-                start=start,
-                end=end,
-                classifier=repo_classifier,
-            )
+            try:
+                artifact = _generate_artifact(
+                    repo=repo_github,
+                    start=start,
+                    end=end,
+                    classifier=repo_classifier,
+                    use_auth=_use_auth_for(repo_github),
+                )
+            except Exception as exc:  # noqa: BLE001 - one repo must not abort the rest
+                failures += 1
+                print(
+                    f"WARNING: {repo_name} ({repo_github}) failed: {type(exc).__name__}: {exc}",
+                    file=sys.stderr,
+                )
+                continue
+
             if args.dry_run:
                 print(f"=== {repo_name} ({repo_github}) ===")
                 json.dump(artifact, sys.stdout, indent=2, sort_keys=True)
@@ -44,6 +57,10 @@ def main(argv: list[str] | None = None) -> int:
                 output_path = write_artifact(artifact, args.output_dir, repo_name=repo_name)
                 output_paths.append(output_path)
                 print(output_path)
+            successes += 1
+
+        if failures and not successes:
+            return 1
         return 0
     else:
         artifact = _generate_artifact(
@@ -51,6 +68,7 @@ def main(argv: list[str] | None = None) -> int:
             start=start,
             end=end,
             classifier=classifier,
+            use_auth=_use_auth_for(args.repo),
         )
         if args.dry_run:
             json.dump(artifact, sys.stdout, indent=2, sort_keys=True)
@@ -67,8 +85,9 @@ def _generate_artifact(
     start: date,
     end: date,
     classifier: Classifier,
+    use_auth: bool = True,
 ) -> dict:
-    client = GitHubClient(repo=repo)
+    client = GitHubClient(repo=repo, use_auth=use_auth)
     records = client.fetch_weekly_records(start, end)
     classifications = {record.number: classifier.classify_pr(record) for record in records}
     return build_artifact(
@@ -97,6 +116,19 @@ def _load_repos_config(config_path: Path) -> list[dict[str, str]]:
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
     return config.get("repos", [])
+
+
+def _use_auth_for(repo: str) -> bool:
+    """Return False for owners that should be queried anonymously.
+
+    Some orgs (e.g. ROCm) reject classic personal access tokens even for their
+    public repos, so we drop the token for them and rely on unauthenticated
+    access. Override the owner list via INFERADAR_GITHUB_RAW_OWNERS (comma list).
+    """
+    raw = os.getenv("INFERADAR_GITHUB_RAW_OWNERS", "ROCm")
+    raw_owners = {owner.strip().lower() for owner in raw.split(",") if owner.strip()}
+    owner = repo.split("/", 1)[0].strip().lower()
+    return owner not in raw_owners
 
 
 def _resolve_window(start_arg: str | None, end_arg: str | None) -> tuple[date, date]:

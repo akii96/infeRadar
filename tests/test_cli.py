@@ -6,10 +6,21 @@ from inferadar import cli
 from inferadar.github_client import PullRequestRecord
 
 
+def test_use_auth_for_owner_rules(monkeypatch) -> None:
+    monkeypatch.delenv("INFERADAR_GITHUB_RAW_OWNERS", raising=False)
+    assert cli._use_auth_for("vllm-project/vllm") is True
+    assert cli._use_auth_for("ROCm/aiter") is False
+    assert cli._use_auth_for("rocm/ATOM") is False  # case-insensitive
+    monkeypatch.setenv("INFERADAR_GITHUB_RAW_OWNERS", "foo, bar")
+    assert cli._use_auth_for("ROCm/aiter") is True
+    assert cli._use_auth_for("foo/baz") is False
+
+
 def test_cli_dry_run_outputs_json(monkeypatch, capsys) -> None:
     class FakeClient:
-        def __init__(self, repo: str) -> None:
+        def __init__(self, repo: str, use_auth: bool = True) -> None:
             self.repo = repo
+            self.use_auth = use_auth
 
         def fetch_weekly_records(self, start, end):
             return [

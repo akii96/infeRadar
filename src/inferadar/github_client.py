@@ -55,9 +55,13 @@ class GitHubClient:
         repo: str = "ROCm/aiter",
         token: str | None = None,
         transport: Transport = _default_transport,
+        use_auth: bool = True,
     ) -> None:
         self.repo = repo
         self.base_url = "https://api.github.com"
+        # Some orgs (e.g. ROCm) reject classic PATs even for public repos; for
+        # those we query anonymously by setting use_auth=False.
+        self.use_auth = use_auth
         self.token = token or os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
         self.transport = transport
 
@@ -144,7 +148,7 @@ class GitHubClient:
             "X-GitHub-Api-Version": "2022-11-28",
             "User-Agent": "inferadar",
         }
-        if self.token:
+        if self.use_auth and self.token:
             headers["Authorization"] = f"Bearer {self.token}"
         return headers
 

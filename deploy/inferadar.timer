@@ -1,19 +1,18 @@
 [Unit]
-Description=InfeRadar schedule: Mon 00:00 and Thu 12:00 (EEST)
+Description=InfeRadar markdown stage (Mon 01:00 and Thu 13:00 EEST)
 
 [Timer]
-# Twice weekly: 12 AM Monday (the Sunday->Monday midnight) and 3.5 days later
-# (Thursday noon, the week's midpoint), pinned to an EET/EEST zone. Replace
-# Europe/Athens with your actual IANA zone.
+# GitHub Actions generates the JSON at Mon 00:00 / Thu 12:00 EEST. This runs the
+# markdown stage about an hour later, so the fresh JSON is already committed and
+# pushed. Pinned to an EET/EEST zone - replace Europe/Athens with your IANA zone.
 #
-# The trailing-timezone form needs systemd >= v252. On older systemd, either set
-# the server's local timezone to your EET/EEST zone and drop the suffix, or use
-# the UTC equivalents below (these reflect the current UTC+3 offset and do NOT
-# auto-adjust for DST):
-#   OnCalendar=Sun *-*-* 21:00:00 UTC   # = Mon 00:00 EEST
-#   OnCalendar=Thu *-*-* 09:00:00 UTC   # = Thu 12:00 EEST
-OnCalendar=Mon *-*-* 00:00:00 Europe/Athens
-OnCalendar=Thu *-*-* 12:00:00 Europe/Athens
+# The trailing-timezone form needs systemd >= v252. On older systemd, set the
+# server's timezone to your EET/EEST zone and drop the suffix, or use the UTC
+# equivalents below (these reflect the current UTC+3 offset and do NOT auto-DST):
+#   OnCalendar=Sun *-*-* 22:00:00 UTC   # = Mon 01:00 EEST
+#   OnCalendar=Thu *-*-* 10:00:00 UTC   # = Thu 13:00 EEST
+OnCalendar=Mon *-*-* 01:00:00 Europe/Athens
+OnCalendar=Thu *-*-* 13:00:00 Europe/Athens
 
 # Catch up a run that was missed while the server was down.
 Persistent=true
