@@ -103,15 +103,25 @@ Configure the gateway entirely via environment variables (any OpenAI-compatible
 | `INFERADAR_LLM_AUTH_HEADER` | no | Auth header name (default `Authorization`) |
 | `INFERADAR_LLM_AUTH_PREFIX` | no | Value prefix (default `Bearer `; set empty for a bare key) |
 | `INFERADAR_LLM_TIMEOUT` | no | Read timeout seconds (default 300) |
-| `INFERADAR_LLM_MAX_TOKENS` | no | Output token budget (default 4096) |
+| `INFERADAR_LLM_MAX_TOKENS` | no | Output token budget (default 64000) |
+| `INFERADAR_LLM_MAX_TOKENS_CAP` | no | Ceiling for the empty-content retry (default 64000) |
+| `INFERADAR_LLM_EMPTY_RETRIES` | no | Extra attempts on empty content, escalating the budget (default 2) |
+
+Reasoning models (like the default `gemini-3.1-pro-preview`) spend part of the
+output budget on hidden "thinking", which can leave zero visible text on a tight
+budget. The default budget is therefore high (64000, the model's max output), and
+if the model still returns empty content the client retries with a doubled budget
+(up to `INFERADAR_LLM_MAX_TOKENS_CAP`). If you point at a model with a smaller max
+output (e.g. 8192/16384), lower both `INFERADAR_LLM_MAX_TOKENS` and
+`INFERADAR_LLM_MAX_TOKENS_CAP` to that limit.
 
 For the AMD internal gateway (an Azure API Management front door) set
 `INFERADAR_LLM_BASE_URL=https://llm-api.amd.com/api/v1`,
 `INFERADAR_LLM_AUTH_HEADER=Ocp-Apim-Subscription-Key`, and `INFERADAR_LLM_AUTH_PREFIX=`
-(empty). The default model is `gemini-3.1-pro-preview`; since it is a reasoning
-model, also set `INFERADAR_LLM_MAX_TOKENS=24000` so the digest is not truncated.
-Alternatives: `Claude-Opus-4.8` (~3x faster, curated) or `Claude-Sonnet-4.5` (most
-reliable). See [`deploy/inferadar.env.example`](deploy/inferadar.env.example).
+(empty). The default model is `gemini-3.1-pro-preview`. Alternatives:
+`Claude-Opus-4.8` (~3x faster, curated, supports 128000 output) or
+`Claude-Sonnet-4.5` (most reliable). See
+[`deploy/inferadar.env.example`](deploy/inferadar.env.example).
 
 Each digest has a fixed shape: a `## TL;DR` (which model families got the most
 attention, the most needle-moving performance PRs), `## Most important PRs` (the

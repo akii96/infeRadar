@@ -15,7 +15,9 @@ variables so no provider, base URL, key, or model name is ever hard-coded:
     INFERADAR_LLM_API_KEY    bearer token for the gateway
     INFERADAR_LLM_MODEL      model name served by the gateway
     INFERADAR_LLM_TIMEOUT    optional read timeout in seconds (default 300)
-    INFERADAR_LLM_MAX_TOKENS optional output token budget (default 4096)
+    INFERADAR_LLM_MAX_TOKENS optional output token budget (default 64000)
+    INFERADAR_LLM_MAX_TOKENS_CAP   optional ceiling for the empty-content retry (default 64000)
+    INFERADAR_LLM_EMPTY_RETRIES    optional extra attempts on empty content (default 2)
 
 Notification safety: the generated markdown never contains "@" mentions, and PR
 references are emitted as full-URL links. Neither @mentions nor full URLs inside
@@ -38,11 +40,22 @@ ENV_API_KEY = "INFERADAR_LLM_API_KEY"
 ENV_MODEL = "INFERADAR_LLM_MODEL"
 ENV_TIMEOUT = "INFERADAR_LLM_TIMEOUT"
 ENV_MAX_TOKENS = "INFERADAR_LLM_MAX_TOKENS"
+ENV_MAX_TOKENS_CAP = "INFERADAR_LLM_MAX_TOKENS_CAP"
+ENV_EMPTY_RETRIES = "INFERADAR_LLM_EMPTY_RETRIES"
 ENV_AUTH_HEADER = "INFERADAR_LLM_AUTH_HEADER"
 ENV_AUTH_PREFIX = "INFERADAR_LLM_AUTH_PREFIX"
 
 DEFAULT_TIMEOUT = 300.0
-DEFAULT_MAX_TOKENS = 4096
+# Default to a generous budget so reasoning models (whose "thinking" tokens count
+# against the output budget) don't return empty content. 64000 is the max output
+# of the default model (gemini-3.1-pro-preview); override per model via env.
+DEFAULT_MAX_TOKENS = 64000
+# Upper bound the escalating retry will not exceed (keeps us within model limits;
+# most served models cap at 64k-128k output). Override via INFERADAR_LLM_MAX_TOKENS_CAP.
+DEFAULT_MAX_TOKENS_CAP = 64000
+# How many extra attempts (with an escalated budget) to make when the model
+# returns empty content. Override via INFERADAR_LLM_EMPTY_RETRIES.
+DEFAULT_EMPTY_RETRIES = 2
 TEMPERATURE = 0.2
 DEFAULT_AUTH_HEADER = "Authorization"
 DEFAULT_AUTH_PREFIX = "Bearer "
@@ -334,8 +347,70 @@ def call_llm(
     if timeout is None:
         timeout = float(os.getenv(ENV_TIMEOUT, str(DEFAULT_TIMEOUT)))
     if max_tokens is None:
-        max_tokens = int(os.getenv(ENV_MAX_TOKENS, str(DEFAULT_MAX_TOKENS)))
+        max_tokens = _env_int(ENV_MAX_TOKENS, DEFAULT_MAX_TOKENS)
+    cap = max(1, _env_int(ENV_MAX_TOKENS_CAP, DEFAULT_MAX_TOKENS_CAP))
+    empty_retries = max(0, _env_int(ENV_EMPTY_RETRIES, DEFAULT_EMPTY_RETRIES))
 
+    # Reasoning models (e.g. gemini-3.x-pro) spend part of the output budget on
+    # hidden "thinking"; on a tight budget that can leave zero visible text. When
+    # that happens, retry with an escalated budget (doubling, capped) instead of
+    # dropping the repo. The cap keeps us within the model's max output.
+    budget = min(max(max_tokens, 1), cap)
+    last_error: Exception | None = None
+    attempts_made = 0
+    for attempt in range(empty_retries + 1):
+        attempts_made = attempt + 1
+        try:
+            return _chat_once(base_url, api_key, model, system, user, budget, timeout)
+        except _EmptyContentError as exc:
+            last_error = exc
+            # A non-length stop (content filter, safety, etc.) won't be fixed by a
+            # bigger budget, so fail fast instead of wasting slow calls.
+            if not exc.budget_related:
+                break
+            if budget >= cap or attempt >= empty_retries:
+                break
+            budget = min(budget * 2, cap)
+    reason = f" (finish_reason={last_error.finish_reason})" if last_error and last_error.finish_reason else ""
+    raise RuntimeError(
+        f"LLM returned empty content after {attempts_made} attempt(s) "
+        f"(budget up to {budget}){reason}; if truncated, raise {ENV_MAX_TOKENS_CAP}"
+    ) from last_error
+
+
+def _env_int(name: str, default: int) -> int:
+    raw = os.getenv(name)
+    if raw is None or raw.strip() == "":
+        return default
+    try:
+        return int(raw)
+    except ValueError as exc:
+        raise RuntimeError(f"{name} must be an integer, got {raw!r}") from exc
+
+
+class _EmptyContentError(RuntimeError):
+    """Internal: the model returned a well-formed response with no text content.
+
+    ``budget_related`` is True when the empty response looks like budget
+    exhaustion (finish_reason "length", or absent), so the caller knows whether
+    escalating the token budget could help.
+    """
+
+    def __init__(self, message: str, *, finish_reason: str | None = None) -> None:
+        super().__init__(message)
+        self.finish_reason = finish_reason
+        self.budget_related = finish_reason in (None, "", "length", "max_tokens")
+
+
+def _chat_once(
+    base_url: str,
+    api_key: str,
+    model: str,
+    system: str,
+    user: str,
+    max_tokens: int,
+    timeout: float,
+) -> str:
     try:
         import httpx
     except ImportError as exc:  # pragma: no cover - exercised only without the extra
@@ -363,11 +438,13 @@ def call_llm(
         data = response.json()
 
     try:
-        content = data["choices"][0]["message"]["content"]
+        choice = data["choices"][0]
+        content = choice["message"]["content"]
     except (KeyError, IndexError, TypeError) as exc:
         raise RuntimeError(f"Unexpected LLM response shape: {str(data)[:300]}") from exc
     if not content or not str(content).strip():
-        raise RuntimeError("LLM returned empty content")
+        finish_reason = choice.get("finish_reason") if isinstance(choice, dict) else None
+        raise _EmptyContentError("LLM returned empty content", finish_reason=finish_reason)
     return str(content).strip()
 
 

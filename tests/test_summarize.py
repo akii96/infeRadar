@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import os
 
+import pytest
+
 from inferadar import summarize
 from inferadar.summarize import (
     build_markdown,
@@ -191,6 +193,111 @@ def test_main_writes_markdown(monkeypatch, tmp_path) -> None:
     md = (window_dir / "AITER.md").read_text(encoding="utf-8")
     assert md.startswith("# AITER: PR digest")
     assert "[#100](https://github.com/ROCm/aiter/pull/100)" in md
+
+
+def test_call_llm_retries_on_empty_then_succeeds(monkeypatch) -> None:
+    monkeypatch.setenv("INFERADAR_LLM_BASE_URL", "https://gw/v1")
+    monkeypatch.setenv("INFERADAR_LLM_API_KEY", "k")
+    monkeypatch.setenv("INFERADAR_LLM_MODEL", "m")
+    monkeypatch.setenv("INFERADAR_LLM_MAX_TOKENS", "1000")
+    monkeypatch.setenv("INFERADAR_LLM_MAX_TOKENS_CAP", "8000")
+    monkeypatch.setenv("INFERADAR_LLM_EMPTY_RETRIES", "3")
+
+    budgets: list[int] = []
+
+    def fake_once(base_url, api_key, model, system, user, max_tokens, timeout):
+        budgets.append(max_tokens)
+        if max_tokens < 4000:
+            raise summarize._EmptyContentError("empty")
+        return "ok content"
+
+    monkeypatch.setattr(summarize, "_chat_once", fake_once)
+    out = summarize.call_llm("sys", "usr")
+    assert out == "ok content"
+    # escalates 1000 -> 2000 -> 4000 (doubling, capped at 8000)
+    assert budgets == [1000, 2000, 4000]
+
+
+def test_call_llm_gives_up_after_retries(monkeypatch) -> None:
+    monkeypatch.setenv("INFERADAR_LLM_BASE_URL", "https://gw/v1")
+    monkeypatch.setenv("INFERADAR_LLM_API_KEY", "k")
+    monkeypatch.setenv("INFERADAR_LLM_MODEL", "m")
+    monkeypatch.setenv("INFERADAR_LLM_MAX_TOKENS", "1000")
+    monkeypatch.setenv("INFERADAR_LLM_MAX_TOKENS_CAP", "4000")
+    monkeypatch.setenv("INFERADAR_LLM_EMPTY_RETRIES", "2")
+
+    calls = {"n": 0}
+
+    def always_empty(*a, **k):
+        calls["n"] += 1
+        raise summarize._EmptyContentError("empty")
+
+    monkeypatch.setattr(summarize, "_chat_once", always_empty)
+    with pytest.raises(RuntimeError, match="empty content after"):
+        summarize.call_llm("sys", "usr")
+    assert calls["n"] == 3  # initial + 2 retries
+
+
+def _set_llm_env(monkeypatch, **overrides) -> None:
+    monkeypatch.setenv("INFERADAR_LLM_BASE_URL", "https://gw/v1")
+    monkeypatch.setenv("INFERADAR_LLM_API_KEY", "k")
+    monkeypatch.setenv("INFERADAR_LLM_MODEL", "m")
+    for key in ("INFERADAR_LLM_MAX_TOKENS", "INFERADAR_LLM_MAX_TOKENS_CAP", "INFERADAR_LLM_EMPTY_RETRIES"):
+        monkeypatch.delenv(key, raising=False)
+    for key, val in overrides.items():
+        monkeypatch.setenv(key, val)
+
+
+def test_call_llm_single_attempt_when_budget_at_cap(monkeypatch) -> None:
+    _set_llm_env(monkeypatch, INFERADAR_LLM_MAX_TOKENS="8000", INFERADAR_LLM_MAX_TOKENS_CAP="4000",
+                 INFERADAR_LLM_EMPTY_RETRIES="5")
+    budgets: list[int] = []
+
+    def fake_once(b, a, m, s, u, max_tokens, t):
+        budgets.append(max_tokens)
+        raise summarize._EmptyContentError("empty")
+
+    monkeypatch.setattr(summarize, "_chat_once", fake_once)
+    with pytest.raises(RuntimeError, match="after 1 attempt"):
+        summarize.call_llm("sys", "usr")
+    assert budgets == [4000]  # initial clamped to cap; no escalation past cap
+
+
+def test_call_llm_zero_retries(monkeypatch) -> None:
+    _set_llm_env(monkeypatch, INFERADAR_LLM_MAX_TOKENS="1000", INFERADAR_LLM_MAX_TOKENS_CAP="9000",
+                 INFERADAR_LLM_EMPTY_RETRIES="0")
+    calls = {"n": 0}
+
+    def fake_once(*a, **k):
+        calls["n"] += 1
+        raise summarize._EmptyContentError("empty")
+
+    monkeypatch.setattr(summarize, "_chat_once", fake_once)
+    with pytest.raises(RuntimeError, match="after 1 attempt"):
+        summarize.call_llm("sys", "usr")
+    assert calls["n"] == 1
+
+
+def test_call_llm_fast_fails_on_content_filter(monkeypatch) -> None:
+    _set_llm_env(monkeypatch, INFERADAR_LLM_MAX_TOKENS="1000", INFERADAR_LLM_MAX_TOKENS_CAP="9000",
+                 INFERADAR_LLM_EMPTY_RETRIES="5")
+    calls = {"n": 0}
+
+    def fake_once(*a, **k):
+        calls["n"] += 1
+        raise summarize._EmptyContentError("empty", finish_reason="content_filter")
+
+    monkeypatch.setattr(summarize, "_chat_once", fake_once)
+    with pytest.raises(RuntimeError, match="content_filter"):
+        summarize.call_llm("sys", "usr")
+    assert calls["n"] == 1  # non-budget reason: no escalation
+
+
+def test_call_llm_invalid_env_int(monkeypatch) -> None:
+    _set_llm_env(monkeypatch, INFERADAR_LLM_MAX_TOKENS_CAP="not-a-number")
+    monkeypatch.setattr(summarize, "_chat_once", lambda *a, **k: "x")
+    with pytest.raises(RuntimeError, match="must be an integer"):
+        summarize.call_llm("sys", "usr")
 
 
 def test_auth_headers_default_bearer(monkeypatch) -> None:
