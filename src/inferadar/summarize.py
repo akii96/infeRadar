@@ -368,8 +368,10 @@ def call_llm(
             # bigger budget, so fail fast instead of wasting slow calls.
             if not exc.budget_related:
                 break
-            if budget >= cap or attempt >= empty_retries:
+            if attempt >= empty_retries:
                 break
+            # Escalate toward the cap; once at the cap this is a no-op and we
+            # simply retry at max budget (reasoning models emit transient empties).
             budget = min(budget * 2, cap)
     reason = f" (finish_reason={last_error.finish_reason})" if last_error and last_error.finish_reason else ""
     raise RuntimeError(

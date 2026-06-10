@@ -248,9 +248,12 @@ def _set_llm_env(monkeypatch, **overrides) -> None:
         monkeypatch.setenv(key, val)
 
 
-def test_call_llm_single_attempt_when_budget_at_cap(monkeypatch) -> None:
+def test_call_llm_retries_at_cap_same_budget(monkeypatch) -> None:
+    # When the starting budget is already at/above the cap (e.g. the model max),
+    # the client still retries at the cap budget for transient empties - it just
+    # doesn't escalate past the cap.
     _set_llm_env(monkeypatch, INFERADAR_LLM_MAX_TOKENS="8000", INFERADAR_LLM_MAX_TOKENS_CAP="4000",
-                 INFERADAR_LLM_EMPTY_RETRIES="5")
+                 INFERADAR_LLM_EMPTY_RETRIES="2")
     budgets: list[int] = []
 
     def fake_once(b, a, m, s, u, max_tokens, t):
@@ -258,9 +261,9 @@ def test_call_llm_single_attempt_when_budget_at_cap(monkeypatch) -> None:
         raise summarize._EmptyContentError("empty")
 
     monkeypatch.setattr(summarize, "_chat_once", fake_once)
-    with pytest.raises(RuntimeError, match="after 1 attempt"):
+    with pytest.raises(RuntimeError, match="after 3 attempt"):
         summarize.call_llm("sys", "usr")
-    assert budgets == [4000]  # initial clamped to cap; no escalation past cap
+    assert budgets == [4000, 4000, 4000]  # clamped to cap, retried, never exceeds cap
 
 
 def test_call_llm_zero_retries(monkeypatch) -> None:
