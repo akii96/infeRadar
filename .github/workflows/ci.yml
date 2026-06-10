@@ -1,9 +1,8 @@
 # InfeRadar CI.
 #
-# Changelog JSON generation and LLM markdown summaries now run on an internal
-# server (see deploy/ and the README), because the LLM gateway is only reachable
-# inside the company network. Nothing is generated, committed, or scheduled in
-# the cloud anymore, and this workflow uses no secrets - it only runs the tests.
+# This workflow only runs the tests and uses no secrets. JSON generation has its
+# own workflow (generate-changelogs.yml); markdown summaries run off GitHub (see
+# deploy/ and the README).
 name: CI
 
 on:

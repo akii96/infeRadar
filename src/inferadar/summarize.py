@@ -47,8 +47,8 @@ ENV_AUTH_PREFIX = "INFERADAR_LLM_AUTH_PREFIX"
 
 DEFAULT_TIMEOUT = 300.0
 # Default to a generous budget so reasoning models (whose "thinking" tokens count
-# against the output budget) don't return empty content. 64000 is the max output
-# of the default model (gemini-3.1-pro-preview); override per model via env.
+# against the output budget) don't return empty content. Override per model via
+# env; match this to the configured model's maximum output.
 DEFAULT_MAX_TOKENS = 64000
 # Upper bound the escalating retry will not exceed (keeps us within model limits;
 # most served models cap at 64k-128k output). Override via INFERADAR_LLM_MAX_TOKENS_CAP.
@@ -313,10 +313,10 @@ def _default_llm(system: str, user: str) -> str:
 def _auth_headers(api_key: str) -> dict[str, str]:
     """Build request headers. Defaults to ``Authorization: Bearer <key>``.
 
-    For a gateway with a non-standard auth header - e.g. an Azure API Management
-    front door that wants ``Ocp-Apim-Subscription-Key`` and the bare key - set:
+    For an endpoint that authenticates with a non-standard header carrying the
+    bare key (no ``Bearer`` prefix), override both, e.g.:
 
-        INFERADAR_LLM_AUTH_HEADER=Ocp-Apim-Subscription-Key
+        INFERADAR_LLM_AUTH_HEADER=X-Custom-Key
         INFERADAR_LLM_AUTH_PREFIX=        # empty: send the key with no prefix
     """
     header = os.getenv(ENV_AUTH_HEADER, DEFAULT_AUTH_HEADER).strip() or DEFAULT_AUTH_HEADER
@@ -351,7 +351,7 @@ def call_llm(
     cap = max(1, _env_int(ENV_MAX_TOKENS_CAP, DEFAULT_MAX_TOKENS_CAP))
     empty_retries = max(0, _env_int(ENV_EMPTY_RETRIES, DEFAULT_EMPTY_RETRIES))
 
-    # Reasoning models (e.g. gemini-3.x-pro) spend part of the output budget on
+    # Reasoning models spend part of the output budget on
     # hidden "thinking"; on a tight budget that can leave zero visible text. When
     # that happens, retry with an escalated budget (doubling, capped) instead of
     # dropping the repo. The cap keeps us within the model's max output.

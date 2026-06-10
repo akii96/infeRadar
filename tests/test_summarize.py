@@ -308,11 +308,11 @@ def test_auth_headers_default_bearer(monkeypatch) -> None:
     assert headers["Content-Type"] == "application/json"
 
 
-def test_auth_headers_apim_subscription_key(monkeypatch) -> None:
-    monkeypatch.setenv("INFERADAR_LLM_AUTH_HEADER", "Ocp-Apim-Subscription-Key")
+def test_auth_headers_custom_bare_key(monkeypatch) -> None:
+    monkeypatch.setenv("INFERADAR_LLM_AUTH_HEADER", "X-Custom-Key")
     monkeypatch.setenv("INFERADAR_LLM_AUTH_PREFIX", "")
     headers = summarize._auth_headers("KEY")
-    assert headers == {"Ocp-Apim-Subscription-Key": "KEY", "Content-Type": "application/json"}
+    assert headers == {"X-Custom-Key": "KEY", "Content-Type": "application/json"}
     assert "Authorization" not in headers
 
 
