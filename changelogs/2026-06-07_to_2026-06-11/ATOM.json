@@ -1,0 +1,6835 @@
+{
+  "generated_at": "2026-06-11T13:03:32Z",
+  "period_end": "2026-06-11",
+  "period_start": "2026-06-07",
+  "prs": [
+    {
+      "author": "valarLip",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 33,
+          "changes": 65,
+          "deletions": 32,
+          "filename": "atom/model_ops/attentions/deepseek_v4_attn.py",
+          "status": "modified"
+        },
+        {
+          "additions": 27,
+          "changes": 49,
+          "deletions": 22,
+          "filename": "atom/model_ops/v4_kernels/csa_translate_pack.py",
+          "status": "modified"
+        },
+        {
+          "additions": 136,
+          "changes": 211,
+          "deletions": 75,
+          "filename": "atom/model_ops/v4_kernels/paged_decode.py",
+          "status": "modified"
+        },
+        {
+          "additions": 45,
+          "changes": 98,
+          "deletions": 53,
+          "filename": "atom/model_ops/v4_kernels/paged_decode_indices.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "b78903388cce519440ed0f6888493b412f1be6df",
+        "dda303df204153823075210789ae39dcbcbb2ade"
+      ],
+      "labels": [
+        "arch:gfx950",
+        "component:attention",
+        "component:kernels",
+        "hardware:amd",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:perf"
+      ],
+      "merge_commit_sha": "de7c2b0b8cc20542ac7cd0878012ade9dd463e32",
+      "merged_at": "2026-06-07T12:39:13Z",
+      "number": 1116,
+      "opened_at": "2026-06-06T16:28:21Z",
+      "primary_labels": [
+        "arch:gfx950",
+        "component:attention",
+        "component:kernels",
+        "hardware:amd",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:perf"
+      ],
+      "reasons": [
+        {
+          "label": "arch:gfx950",
+          "matched": "MI355",
+          "pattern": "\\b(gfx950|mi355)\\b",
+          "rule": "gfx950-text",
+          "source": "title"
+        },
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:kernels",
+          "matched": "kernels/",
+          "pattern": "atom/ops/|kernels/|csrc/",
+          "rule": "kernels",
+          "source": "path"
+        },
+        {
+          "label": "hardware:amd",
+          "matched": "MI355",
+          "pattern": "\\b(gfx950|mi355)\\b",
+          "rule": "gfx950-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:perf",
+          "matched": "perf",
+          "pattern": "\\b(perf|performance|optim|faster|speed|reduce|overhead)\\b",
+          "rule": "perf",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "perf(v4): tune sparse_attn_v4_paged_decode for MI355 (+19.3% geomean)",
+      "url": "https://github.com/ROCm/ATOM/pull/1116"
+    },
+    {
+      "author": "Jasen2201",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 664,
+          "changes": 664,
+          "deletions": 0,
+          "filename": "atom/mesh/scripts/ds_v4_1p_tp8_1d_tp8_atom_tp_slurm.sh",
+          "status": "added"
+        },
+        {
+          "additions": 690,
+          "changes": 690,
+          "deletions": 0,
+          "filename": "atom/mesh/scripts/ds_v4_2p_tp8_1d_tp8_atom_dpa_slurm.sh",
+          "status": "added"
+        }
+      ],
+      "commit_shas": [
+        "8019ed13c3950bfe815d56dcf9ff1ef47c6330e7",
+        "94c0c2e0effd7178856a372ef9f9be032e0cd4f0",
+        "e2ffef78b92c73a55e47f7526f17976a24cc1790"
+      ],
+      "labels": [
+        "component:mesh",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:feature"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1124,
+      "opened_at": "2026-06-08T02:46:50Z",
+      "primary_labels": [
+        "component:mesh",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:mesh",
+          "matched": "mesh/",
+          "pattern": "atom_mesh|mesh/",
+          "rule": "mesh",
+          "source": "path"
+        },
+        {
+          "label": "component:mesh",
+          "matched": "mesh",
+          "pattern": "\\batom.mesh|mesh\\b",
+          "rule": "mesh-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:feature",
+          "matched": "feat",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "open_pr",
+      "title": "feat(mesh): add v4 1p1d/2p1d slurm scripts with nightly docker image",
+      "url": "https://github.com/ROCm/ATOM/pull/1124"
+    },
+    {
+      "author": "qichu-yun",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 21,
+          "changes": 21,
+          "deletions": 0,
+          "filename": "recipes/DeepSeek-R1.md",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "a7d5f77b12e3fee79f77a8fe5352e716bdf9acc9"
+      ],
+      "labels": [
+        "kernel:misc",
+        "model:deepseek",
+        "open_pr",
+        "type:docs",
+        "type:feature"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1126,
+      "opened_at": "2026-06-08T06:07:28Z",
+      "primary_labels": [
+        "kernel:misc",
+        "model:deepseek",
+        "open_pr",
+        "type:docs",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:deepseek",
+          "matched": "DeepSeek",
+          "pattern": "\\b(deepseek|ds[-_. ]?v[34]|dsv[34]|deepseek[-_ ]?r1|dsr1)\\b",
+          "rule": "deepseek",
+          "source": "title"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:docs",
+          "matched": ".md",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "add",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "open_pr",
+      "title": "docs(recipe): add DeepSeek R1 MXFP4 v2 case",
+      "url": "https://github.com/ROCm/ATOM/pull/1126"
+    },
+    {
+      "author": "ZhangLirong-amd",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 4,
+          "changes": 4,
+          "deletions": 0,
+          "filename": "atom/kv_transfer/disaggregation/mooncake/mooncake_connector.py",
+          "status": "modified"
+        },
+        {
+          "additions": 36,
+          "changes": 38,
+          "deletions": 2,
+          "filename": "atom/models/deepseek_v4.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "7dafb2b9cdf8b80358afa1cdfc1ce13a53ae2fa9",
+        "be7bda776a421d6a80198c3034fa3930438dcfda"
+      ],
+      "labels": [
+        "component:distributed",
+        "kernel:misc",
+        "merged",
+        "model:deepseek",
+        "type:bugfix",
+        "type:feature"
+      ],
+      "merge_commit_sha": "4f2fc0ee5099b50098c50fa1932b03601e7fa713",
+      "merged_at": "2026-06-08T06:35:30Z",
+      "number": 1121,
+      "opened_at": "2026-06-07T09:54:02Z",
+      "primary_labels": [
+        "component:distributed",
+        "kernel:misc",
+        "merged",
+        "model:deepseek",
+        "type:bugfix",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:distributed",
+          "matched": "disagg",
+          "pattern": "distributed|tensor_parallel|disagg",
+          "rule": "distributed",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:deepseek",
+          "matched": "Deepseek",
+          "pattern": "\\b(deepseek|ds[-_. ]?v[34]|dsv[34]|deepseek[-_ ]?r1|dsr1)\\b",
+          "rule": "deepseek",
+          "source": "title"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        },
+        {
+          "label": "type:feature",
+          "matched": "enable",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "fix: enable TBO compute/comm overlap in Deepseek V4 and fix mooncake gather hang for PD prefill",
+      "url": "https://github.com/ROCm/ATOM/pull/1121"
+    },
+    {
+      "author": "Jasen2201",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 12,
+          "changes": 20,
+          "deletions": 8,
+          "filename": "docker/Dockerfile",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "e34568cea0bb739bf6ad5686e41f7bdfe5354bf5"
+      ],
+      "labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:ci-build"
+      ],
+      "merge_commit_sha": "b94aa088c14a7f289c52a0c578253cf72f8327cb",
+      "merged_at": "2026-06-08T06:45:41Z",
+      "number": 1123,
+      "opened_at": "2026-06-07T11:21:47Z",
+      "primary_labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:ci-build"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": "Dockerfile",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "fix(docker): remove hardcoded python3.10 paths in OOT stage",
+      "url": "https://github.com/ROCm/ATOM/pull/1123"
+    },
+    {
+      "author": "gbyu-amd",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 4,
+          "changes": 8,
+          "deletions": 4,
+          "filename": ".github/workflows/atom-vllm-test.yaml",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "f1b1919caca7ccfd46091af54a7a1c9503de7d17",
+        "0ded5a3a2d8ea48f5f2479600a947b6e709a83eb"
+      ],
+      "labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build"
+      ],
+      "merge_commit_sha": "b795fb9385a9f626cde3cb9b8cea88b0ac2ed8a0",
+      "merged_at": "2026-06-08T06:51:13Z",
+      "number": 1127,
+      "opened_at": "2026-06-08T06:35:47Z",
+      "primary_labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "[atom-vllm ci] update Kimi-k2 to Kimi-k2.5 in vLLM-ATOM CI",
+      "url": "https://github.com/ROCm/ATOM/pull/1127"
+    },
+    {
+      "author": "PerryZhang01",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 2,
+          "changes": 3,
+          "deletions": 1,
+          "filename": "atom/model_loader/loader.py",
+          "status": "modified"
+        },
+        {
+          "additions": 23,
+          "changes": 34,
+          "deletions": 11,
+          "filename": "atom/model_ops/topK.py",
+          "status": "modified"
+        },
+        {
+          "additions": 6,
+          "changes": 7,
+          "deletions": 1,
+          "filename": "atom/models/qwen3_5.py",
+          "status": "modified"
+        },
+        {
+          "additions": 5,
+          "changes": 7,
+          "deletions": 2,
+          "filename": "atom/models/qwen3_next.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "cbe5dc4be0b53f3014eb9de4342e616d338ab95f",
+        "5a38d4f250f6cbbfc60386ce6770f24e405fc74c"
+      ],
+      "labels": [
+        "component:moe",
+        "component:quantization",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:bugfix"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1128,
+      "opened_at": "2026-06-08T08:24:39Z",
+      "primary_labels": [
+        "component:moe",
+        "component:quantization",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:bugfix"
+      ],
+      "reasons": [
+        {
+          "label": "component:moe",
+          "matched": "moe",
+          "pattern": "\\bmoe\\b|mixture.of.experts|\\bexpert\\b",
+          "rule": "moe-text",
+          "source": "title"
+        },
+        {
+          "label": "component:quantization",
+          "matched": "fp4",
+          "pattern": "\\b(quant|fp8|fp4|int4|mxfp|w8a8|awq)\\b",
+          "rule": "quantization-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        }
+      ],
+      "state": "open_pr",
+      "title": "[fix](moe): fix fused shared expert in qwen3.5-fp4",
+      "url": "https://github.com/ROCm/ATOM/pull/1128"
+    },
+    {
+      "author": "haoyangli0109",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "README.md",
+          "status": "modified"
+        },
+        {
+          "additions": 5,
+          "changes": 5,
+          "deletions": 0,
+          "filename": "docs/configuration_guide.md",
+          "status": "modified"
+        },
+        {
+          "additions": 288,
+          "changes": 288,
+          "deletions": 0,
+          "filename": "docs/online_quantization_guide.md",
+          "status": "added"
+        },
+        {
+          "additions": 0,
+          "changes": 18,
+          "deletions": 18,
+          "filename": "recipes/DeepSeek-R1.md",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "c8ac5c96c105613a8d025b704dc5e6b2f647690c",
+        "161ce21a35148ec2757778190cef7eef106806b2",
+        "ed2b9c9be445448b6e18056025290c7f33d74367"
+      ],
+      "labels": [
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:docs"
+      ],
+      "merge_commit_sha": "8c1aa552de31a6342669c26eaa86a7e9454442a5",
+      "merged_at": "2026-06-08T08:24:55Z",
+      "number": 912,
+      "opened_at": "2026-05-25T11:19:17Z",
+      "primary_labels": [
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:docs"
+      ],
+      "reasons": [
+        {
+          "label": "component:quantization",
+          "matched": "quant",
+          "pattern": "quant|fp8|fp4|int4|mxfp|w8a8|awq|marlin",
+          "rule": "quantization",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:docs",
+          "matched": ".md",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        },
+        {
+          "label": "type:docs",
+          "matched": "README",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        },
+        {
+          "label": "type:docs",
+          "matched": "docs/",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "[Doc] Introduce online quantization",
+      "url": "https://github.com/ROCm/ATOM/pull/912"
+    },
+    {
+      "author": "Yuechguo",
+      "auxiliary_labels": [
+        "type:tests"
+      ],
+      "changed_files": [
+        {
+          "additions": 2,
+          "changes": 3,
+          "deletions": 1,
+          "filename": "atom/mesh/Cargo.toml",
+          "status": "modified"
+        },
+        {
+          "additions": 21,
+          "changes": 21,
+          "deletions": 0,
+          "filename": "atom/mesh/README.md",
+          "status": "modified"
+        },
+        {
+          "additions": 32,
+          "changes": 34,
+          "deletions": 2,
+          "filename": "atom/mesh/mocker/README.md",
+          "status": "modified"
+        },
+        {
+          "additions": 13,
+          "changes": 15,
+          "deletions": 2,
+          "filename": "atom/mesh/mocker/main.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 83,
+          "changes": 83,
+          "deletions": 0,
+          "filename": "atom/mesh/mocker/scripts/start_atomesh.sh",
+          "status": "added"
+        },
+        {
+          "additions": 90,
+          "changes": 90,
+          "deletions": 0,
+          "filename": "atom/mesh/mocker/scripts/start_virtual_requests.sh",
+          "status": "added"
+        },
+        {
+          "additions": 50,
+          "changes": 50,
+          "deletions": 0,
+          "filename": "atom/mesh/mocker/scripts/start_virtual_workers.sh",
+          "status": "added"
+        },
+        {
+          "additions": 59,
+          "changes": 62,
+          "deletions": 3,
+          "filename": "atom/mesh/mocker/virtual_workers/request.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 36,
+          "changes": 39,
+          "deletions": 3,
+          "filename": "atom/mesh/src/cliargs.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 5,
+          "changes": 6,
+          "deletions": 1,
+          "filename": "atom/mesh/src/core/circuit_breaker.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 7,
+          "changes": 10,
+          "deletions": 3,
+          "filename": "atom/mesh/src/middleware.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "atom/mesh/src/observability/metrics/engine_metrics.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "atom/mesh/src/observability/metrics/mesh_metrics.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 3,
+          "changes": 6,
+          "deletions": 3,
+          "filename": "atom/mesh/src/observability/metrics/mod.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "atom/mesh/src/observability/metrics/routes.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 5,
+          "changes": 6,
+          "deletions": 1,
+          "filename": "atom/mesh/src/observability/metrics/schema.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 36,
+          "changes": 45,
+          "deletions": 9,
+          "filename": "atom/mesh/src/python.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 54,
+          "changes": 97,
+          "deletions": 43,
+          "filename": "atom/mesh/src/routers/atom_standalone.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 7,
+          "deletions": 5,
+          "filename": "atom/mesh/src/routers/grpc/engine/mod.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "atom/mesh/src/routers/grpc/engine/pd_stream_merge.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 5,
+          "deletions": 3,
+          "filename": "atom/mesh/src/routers/grpc/engine/tests.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 8,
+          "changes": 16,
+          "deletions": 8,
+          "filename": "atom/mesh/src/routers/grpc/pipeline.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 79,
+          "changes": 129,
+          "deletions": 50,
+          "filename": "atom/mesh/src/routers/grpc/tests.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 24,
+          "changes": 30,
+          "deletions": 6,
+          "filename": "atom/mesh/src/routers/http_pd_router.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 4,
+          "changes": 5,
+          "deletions": 1,
+          "filename": "atom/mesh/src/routers/http_router.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/src/routers/mod.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 80,
+          "changes": 121,
+          "deletions": 41,
+          "filename": "atom/mesh/src/routers/openai/responses/tests.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 15,
+          "changes": 32,
+          "deletions": 17,
+          "filename": "atom/mesh/src/routers/prepare/tests.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 6,
+          "deletions": 5,
+          "filename": "atom/mesh/src/routers/render/chat_streaming.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 6,
+          "deletions": 5,
+          "filename": "atom/mesh/src/routers/render/generate_streaming.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 120,
+          "changes": 184,
+          "deletions": 64,
+          "filename": "atom/mesh/src/routers/render/tests.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 8,
+          "deletions": 6,
+          "filename": "atom/mesh/src/routers/test_mocks/dispatcher.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 8,
+          "deletions": 6,
+          "filename": "atom/mesh/src/routers/test_mocks/pipeline.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 5,
+          "deletions": 4,
+          "filename": "atom/mesh/src/routers/test_mocks/planner.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "atom/mesh/src/routers/token_handle/test_support.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 4,
+          "changes": 10,
+          "deletions": 6,
+          "filename": "atom/mesh/src/routers/token_handle/tests.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 84,
+          "changes": 90,
+          "deletions": 6,
+          "filename": "atom/mesh/src/server.rs",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "2a8dd3850e99be3d76d0202c015629ed38f45ccd",
+        "a13627cbe08611c49b3b12379948a0798089ab05"
+      ],
+      "labels": [
+        "component:frontend",
+        "component:mesh",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:docs",
+        "type:feature",
+        "type:tests"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1129,
+      "opened_at": "2026-06-08T08:36:25Z",
+      "primary_labels": [
+        "component:frontend",
+        "component:mesh",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:docs",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:frontend",
+          "matched": "server",
+          "pattern": "\\b(server|api|openai|responses.api)\\b",
+          "rule": "frontend-text",
+          "source": "title"
+        },
+        {
+          "label": "component:mesh",
+          "matched": "mesh/",
+          "pattern": "atom_mesh|mesh/",
+          "rule": "mesh",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:docs",
+          "matched": "README",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "add",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        },
+        {
+          "label": "type:tests",
+          "matched": "test_",
+          "pattern": "(^|/)tests/|test_",
+          "rule": "tests",
+          "source": "path"
+        }
+      ],
+      "state": "open_pr",
+      "title": "fmt and add tls for http server",
+      "url": "https://github.com/ROCm/ATOM/pull/1129"
+    },
+    {
+      "author": "Phi-C",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 6,
+          "changes": 8,
+          "deletions": 2,
+          "filename": "atom/model_loader/loader.py",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "atom/models/deepseek_v4.py",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "atom/models/deepseek_v4_mtp.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "27c65eebd8080de9e682062940c5fbeaf80702e7",
+        "94fef90eda365804b5ef036c42ad55d93dc62532"
+      ],
+      "labels": [
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix"
+      ],
+      "merge_commit_sha": "a8862d5364593fcfc58f5b6b61a3e2391d9dd49b",
+      "merged_at": "2026-06-08T09:29:45Z",
+      "number": 1119,
+      "opened_at": "2026-06-07T04:15:54Z",
+      "primary_labels": [
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix"
+      ],
+      "reasons": [
+        {
+          "label": "component:quantization",
+          "matched": "quant",
+          "pattern": "\\b(quant|fp8|fp4|int4|mxfp|w8a8|awq)\\b",
+          "rule": "quantization-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "fix: fix quant config read logic in model loading",
+      "url": "https://github.com/ROCm/ATOM/pull/1119"
+    },
+    {
+      "author": "amd-ruitang3",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 3,
+          "changes": 6,
+          "deletions": 3,
+          "filename": "atom/model_ops/moe.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "c08cbbbcf49d9af965bb5d45430d1a84a5baa23d"
+      ],
+      "labels": [
+        "component:moe",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix"
+      ],
+      "merge_commit_sha": "222d295fe926c31f82976390473ae95a31b050d2",
+      "merged_at": "2026-06-08T11:34:52Z",
+      "number": 1132,
+      "opened_at": "2026-06-08T10:13:38Z",
+      "primary_labels": [
+        "component:moe",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix"
+      ],
+      "reasons": [
+        {
+          "label": "component:moe",
+          "matched": "moe",
+          "pattern": "\\bmoe\\b|\\bexpert\\b|fused_moe",
+          "rule": "moe",
+          "source": "path"
+        },
+        {
+          "label": "component:moe",
+          "matched": "MoE",
+          "pattern": "\\bmoe\\b|mixture.of.experts|\\bexpert\\b",
+          "rule": "moe-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "FIX",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "[FIX] MoE fallback route",
+      "url": "https://github.com/ROCm/ATOM/pull/1132"
+    },
+    {
+      "author": "Jasen2201",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/workflows/atom-mmstar-ci.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/workflows/atom-sglang-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/workflows/atom-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/workflows/atom-vllm-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 3,
+          "changes": 6,
+          "deletions": 3,
+          "filename": ".github/workflows/docker-release.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/atom_sgl_mesh_xpyd.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/ds_fp4_1p_tp4_2d_tp8_atom_slurm.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/ds_fp4_1p_tp4_2d_tp8_sglang_slurm.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/ds_fp4_1p_tp4_2d_tp8_vllm_slurm.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/ds_fp4_1p_tp8_1d_tp8_atom_slurm.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/ds_fp4_1p_tp8_1d_tp8_sglang_slurm.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/ds_fp4_1p_tp8_1d_tp8_vllm_slurm.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/ds_fp4_1p_tp8_2d_tp8_atom_slurm.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/ds_fp4_1p_tp8_2d_tp8_sglang_slurm.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/ds_fp4_1p_tp8_2d_tp8_vllm_slurm.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/ds_fp4_2p_dp8ep8_1d_dp8ep8_atom_slurm.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/ds_fp4_2p_dp8ep8_1d_dp8ep8_sglang_slurm.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/ds_fp8_1p_tp4_1d_tp8_slurm.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/scripts/ds_fp8_1p_tp8_1d_tp8_slurm.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "atom/mesh/scripts/start_decode.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "atom/mesh/scripts/start_prefill.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "docker/Dockerfile",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "1b1f14d6d9ccc8d0418e270b2f7ce14fff046b19",
+        "cb3d5c7683693c7e85c09cb49a3d4dfa8d9b4035"
+      ],
+      "labels": [
+        "component:mesh",
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build"
+      ],
+      "merge_commit_sha": "b930870593a3527bf804c07015820a242f976435",
+      "merged_at": "2026-06-08T11:39:24Z",
+      "number": 1133,
+      "opened_at": "2026-06-08T10:53:43Z",
+      "primary_labels": [
+        "component:mesh",
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build"
+      ],
+      "reasons": [
+        {
+          "label": "component:mesh",
+          "matched": "mesh/",
+          "pattern": "atom_mesh|mesh/",
+          "rule": "mesh",
+          "source": "path"
+        },
+        {
+          "label": "component:quantization",
+          "matched": "fp4",
+          "pattern": "quant|fp8|fp4|int4|mxfp|w8a8|awq|marlin",
+          "rule": "quantization",
+          "source": "path"
+        },
+        {
+          "label": "component:quantization",
+          "matched": "fp8",
+          "pattern": "quant|fp8|fp4|int4|mxfp|w8a8|awq|marlin",
+          "rule": "quantization",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": "Dockerfile",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "revert base image to rocm/atom-dev:latest ubuntu24.04_py3.12",
+      "url": "https://github.com/ROCm/ATOM/pull/1133"
+    },
+    {
+      "author": "gyohuangxin",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 5,
+          "changes": 28,
+          "deletions": 23,
+          "filename": ".github/workflows/atom-sglang-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 5,
+          "changes": 28,
+          "deletions": 23,
+          "filename": ".github/workflows/atom-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 5,
+          "changes": 28,
+          "deletions": 23,
+          "filename": ".github/workflows/atom-vllm-test.yaml",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "4ccad1243b251434575b72f30b333e469f87a100"
+      ],
+      "labels": [
+        "backend:aiter",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:ci-build"
+      ],
+      "merge_commit_sha": "70006869d0ae28336fb0d3625906ecadb1611797",
+      "merged_at": "2026-06-08T14:00:22Z",
+      "number": 1134,
+      "opened_at": "2026-06-08T12:33:34Z",
+      "primary_labels": [
+        "backend:aiter",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:ci-build"
+      ],
+      "reasons": [
+        {
+          "label": "backend:aiter",
+          "matched": "aiter",
+          "pattern": "\\baiter\\b",
+          "rule": "aiter-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "Revert \"fix(ci): pin aiter artifact fallback to cp310\"",
+      "url": "https://github.com/ROCm/ATOM/pull/1134"
+    },
+    {
+      "author": "gyohuangxin",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 23,
+          "changes": 28,
+          "deletions": 5,
+          "filename": ".github/workflows/atom-sglang-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 24,
+          "changes": 30,
+          "deletions": 6,
+          "filename": ".github/workflows/atom-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 23,
+          "changes": 28,
+          "deletions": 5,
+          "filename": ".github/workflows/atom-vllm-test.yaml",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "7d5216f5fd6ffb8e25085a14a4e1a3e2c06dfac5",
+        "37ae9c1ae115883d1233e4da370f72cd9bebc9c8"
+      ],
+      "labels": [
+        "backend:aiter",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:ci-build"
+      ],
+      "merge_commit_sha": "914d50323b2c1b93bb622bfc68165488a027502a",
+      "merged_at": "2026-06-08T15:57:30Z",
+      "number": 1135,
+      "opened_at": "2026-06-08T14:23:41Z",
+      "primary_labels": [
+        "backend:aiter",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:ci-build"
+      ],
+      "reasons": [
+        {
+          "label": "backend:aiter",
+          "matched": "aiter",
+          "pattern": "\\baiter\\b",
+          "rule": "aiter-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "Revert \"Revert \"fix(ci): pin aiter artifact fallback to cp310\"\"",
+      "url": "https://github.com/ROCm/ATOM/pull/1135"
+    },
+    {
+      "author": "gbyu-amd",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 0,
+          "changes": 7,
+          "deletions": 7,
+          "filename": "docker/Dockerfile",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "0a5fed19d9c7d3a1ab148238bec535d13f6967cd"
+      ],
+      "labels": [
+        "backend:triton",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build"
+      ],
+      "merge_commit_sha": "eecc546afd75dfa6563136668d36b4a051b657e9",
+      "merged_at": "2026-06-09T02:46:29Z",
+      "number": 1131,
+      "opened_at": "2026-06-08T09:23:25Z",
+      "primary_labels": [
+        "backend:triton",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build"
+      ],
+      "reasons": [
+        {
+          "label": "backend:triton",
+          "matched": "triton",
+          "pattern": "\\btriton\\b",
+          "rule": "triton-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": "Dockerfile",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "[dockerfile] remove triton=3.6.0 constraint",
+      "url": "https://github.com/ROCm/ATOM/pull/1131"
+    },
+    {
+      "author": "carlushuang",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 298,
+          "changes": 298,
+          "deletions": 0,
+          "filename": "atom/benchmarks/benchmark_disk_loading.py",
+          "status": "added"
+        },
+        {
+          "additions": 412,
+          "changes": 412,
+          "deletions": 0,
+          "filename": "atom/benchmarks/benchmark_model_loading.py",
+          "status": "added"
+        }
+      ],
+      "commit_shas": [
+        "0b41d57af67b93365b8dc361046d500b0b548664",
+        "dc7ecc097d8d53147895c847e69db557b99d5cb2"
+      ],
+      "labels": [
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:perf"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1137,
+      "opened_at": "2026-06-09T03:10:57Z",
+      "primary_labels": [
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:perf"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:perf",
+          "matched": "speed",
+          "pattern": "\\b(perf|performance|optim|faster|speed|reduce|overhead)\\b",
+          "rule": "perf",
+          "source": "title"
+        }
+      ],
+      "state": "open_pr",
+      "title": "benchmarks: standalone model-loading (safetensors) speed benchmark",
+      "url": "https://github.com/ROCm/ATOM/pull/1137"
+    },
+    {
+      "author": "ZhiweiYan-96",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 8,
+          "changes": 9,
+          "deletions": 1,
+          "filename": "atom/plugin/sglang/models/deepseek_mla_forward.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "8350729bf84522a4d72d7a44c54360bfc9c98604"
+      ],
+      "labels": [
+        "component:mla",
+        "component:plugin",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:misc"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1138,
+      "opened_at": "2026-06-09T05:56:45Z",
+      "primary_labels": [
+        "component:mla",
+        "component:plugin",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:misc"
+      ],
+      "reasons": [
+        {
+          "label": "component:mla",
+          "matched": "mla",
+          "pattern": "mla|latent_attention|sparse_mla",
+          "rule": "mla",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:misc",
+          "matched": "",
+          "pattern": "no type label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        }
+      ],
+      "state": "open_pr",
+      "title": "[WIP][ATOM SGLang] Plan stream for specv2",
+      "url": "https://github.com/ROCm/ATOM/pull/1138"
+    },
+    {
+      "author": "qichu-yun",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "atom/plugin/config.py",
+          "status": "modified"
+        },
+        {
+          "additions": 41,
+          "changes": 42,
+          "deletions": 1,
+          "filename": "atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py",
+          "status": "modified"
+        },
+        {
+          "additions": 25,
+          "changes": 25,
+          "deletions": 0,
+          "filename": "atom/plugin/sglang/attention_backend/full_attention/radix_attention.py",
+          "status": "modified"
+        },
+        {
+          "additions": 573,
+          "changes": 573,
+          "deletions": 0,
+          "filename": "atom/plugin/sglang/attention_backend/sparse_mla_indexer.py",
+          "status": "added"
+        },
+        {
+          "additions": 44,
+          "changes": 44,
+          "deletions": 0,
+          "filename": "atom/plugin/sglang/models/deepseek_mla.py",
+          "status": "modified"
+        },
+        {
+          "additions": 17,
+          "changes": 18,
+          "deletions": 1,
+          "filename": "atom/plugin/sglang/models/deepseek_mla_attention.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "2a477a4abb60ec78d013100d2b9a58311b39e54b",
+        "2c5176e175b6207bca2d4d74d6e1826d27416ba5",
+        "acfc6c15a1bb2fd3ce9f7b1da355cbcf574aef44",
+        "28f741c9dc885a2680ee1f8d116f9c00fd5e72c9",
+        "416708c4377a1a4516faa680773280812b171a30",
+        "2770af5bf3b8d5a38275ecf8903562cb495adeab",
+        "569343b3d3c88fb2b584667326ab81669e21c802",
+        "52e1e1a37344174ec68b1ef05d7aef84ab3207c1",
+        "cc7bd69da67717f895d37fd41d1d746a427ac2bf"
+      ],
+      "labels": [
+        "component:attention",
+        "component:mla",
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:deepseek",
+        "type:feature"
+      ],
+      "merge_commit_sha": "83e92de7a8c973a86cfba9d7cd17d1bfe4906450",
+      "merged_at": "2026-06-09T07:45:06Z",
+      "number": 1094,
+      "opened_at": "2026-06-05T04:58:42Z",
+      "primary_labels": [
+        "component:attention",
+        "component:mla",
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:deepseek",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:mla",
+          "matched": "mla",
+          "pattern": "mla|latent_attention|sparse_mla",
+          "rule": "mla",
+          "source": "path"
+        },
+        {
+          "label": "component:mla",
+          "matched": "sparse_mla",
+          "pattern": "mla|latent_attention|sparse_mla",
+          "rule": "mla",
+          "source": "path"
+        },
+        {
+          "label": "component:mla",
+          "matched": "MLA",
+          "pattern": "\\bmla\\b|latent.attention|nope",
+          "rule": "mla-text",
+          "source": "title"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "plugin",
+          "pattern": "\\bplugin|vllm.plugin\\b",
+          "rule": "plugin-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:deepseek",
+          "matched": "DSv3",
+          "pattern": "\\b(deepseek|ds[-_. ]?v[34]|dsv[34]|deepseek[-_ ]?r1|dsr1)\\b",
+          "rule": "deepseek",
+          "source": "title"
+        },
+        {
+          "label": "type:feature",
+          "matched": "Feat",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "[Feat] Support DSv3.2 with sglang-ATOM plugin and sglang sparse MLA",
+      "url": "https://github.com/ROCm/ATOM/pull/1094"
+    },
+    {
+      "author": "gyohuangxin",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 37,
+          "changes": 37,
+          "deletions": 0,
+          "filename": ".github/scripts/atom_test.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 89,
+          "changes": 89,
+          "deletions": 0,
+          "filename": ".github/scripts/collect_gpu_info.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 116,
+          "changes": 116,
+          "deletions": 0,
+          "filename": ".github/scripts/gpu_preflight_check.sh",
+          "status": "added"
+        },
+        {
+          "additions": 13,
+          "changes": 15,
+          "deletions": 2,
+          "filename": ".github/workflows/atom-test.yaml",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "b741e0a3b7b2776ff154f0175969adc40a20d732",
+        "6961097d4a61f736e4a3d3351633ba8d08eddd0c",
+        "0bac15b14e65f6779ab05cc504d8da94b2d1abd5",
+        "c70ef03ffe1e5b5856229e2a4804e2b1b802f963",
+        "219b5718b68910b566a503d2740ea6744c93a4a9",
+        "2883cfdd98e02920dd882e4539730c9a759e822a",
+        "6441432ddda4d3eedd38599368505792c76d421a",
+        "63a5d81355f6dbf942873cecda77aade36c0416c",
+        "81570946b0c75caf5bc5b1302538e2792471a980",
+        "35da7aa443f68433a931d3add891cccbc3b831b4",
+        "af1dbd1bb49bf595ee3cad83896e747a3c2c613e",
+        "4b8db361e6c10612418ac0e3db82c8e05169db9d",
+        "0411d1ec71c811a3446642f873a71c0b5b72044a",
+        "81d613a59a3c9f131525d227aa836c9c08f0e6eb"
+      ],
+      "labels": [
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1139,
+      "opened_at": "2026-06-09T09:01:21Z",
+      "primary_labels": [
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "add",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "open_pr",
+      "title": "ci: add MI350X GPU preflight",
+      "url": "https://github.com/ROCm/ATOM/pull/1139"
+    },
+    {
+      "author": "whx-sjtu",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 22,
+          "changes": 22,
+          "deletions": 0,
+          "filename": ".github/benchmark/oot_benchmark_models.json",
+          "status": "modified"
+        },
+        {
+          "additions": 12,
+          "changes": 12,
+          "deletions": 0,
+          "filename": ".github/benchmark/oot_models_accuracy.json",
+          "status": "modified"
+        },
+        {
+          "additions": 23,
+          "changes": 23,
+          "deletions": 0,
+          "filename": ".github/workflows/atom-vllm-accuracy-validation.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 9,
+          "changes": 9,
+          "deletions": 0,
+          "filename": ".github/workflows/atom-vllm-benchmark.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 9,
+          "changes": 15,
+          "deletions": 6,
+          "filename": ".github/workflows/atom-vllm-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 1369,
+          "changes": 1369,
+          "deletions": 0,
+          "filename": "atom/plugin/vllm/deepseek_v4_bridge.py",
+          "status": "added"
+        },
+        {
+          "additions": 131,
+          "changes": 131,
+          "deletions": 0,
+          "filename": "atom/plugin/vllm/deepseek_v4_ops.py",
+          "status": "added"
+        },
+        {
+          "additions": 136,
+          "changes": 143,
+          "deletions": 7,
+          "filename": "atom/plugin/vllm/model_wrapper.py",
+          "status": "modified"
+        },
+        {
+          "additions": 84,
+          "changes": 84,
+          "deletions": 0,
+          "filename": "atom/plugin/vllm/models/deepseek_v4.py",
+          "status": "added"
+        },
+        {
+          "additions": 94,
+          "changes": 94,
+          "deletions": 0,
+          "filename": "atom/plugin/vllm/platform.py",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "atom/plugin/vllm/register.py",
+          "status": "modified"
+        },
+        {
+          "additions": 79,
+          "changes": 79,
+          "deletions": 0,
+          "filename": "recipes/atom_vllm/DeepSeek-V4.md",
+          "status": "added"
+        }
+      ],
+      "commit_shas": [
+        "455d0bdb774fbbd21570d220cd6072d388f131a7",
+        "752f3157c51e840ded8b2ecf418e2cc6cca39bd3",
+        "2cf694a672ca962cc05bddc7fdbcfb6944489cc6",
+        "1c32ad8686d324fb9c96f2677a7af9cc72d53e56",
+        "2a4c9a785ec8080f258e271aaabac4da35455bb0",
+        "c67bdb469fc731876632e714bf50ebe86e5a2f48",
+        "3e610283ead27428fb0587411d45910877a29d93",
+        "bdefeb285d80a6d12cbb343b3f02a536b9d75641",
+        "9a4af92cfebe2ac916089acf6ea45fd9cf7a0829"
+      ],
+      "labels": [
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:deepseek",
+        "type:ci-build",
+        "type:docs",
+        "type:feature"
+      ],
+      "merge_commit_sha": "e95ef5d74a860e04a6219dfff319535bc19449dd",
+      "merged_at": "2026-06-09T13:19:15Z",
+      "number": 1060,
+      "opened_at": "2026-06-03T17:02:49Z",
+      "primary_labels": [
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:deepseek",
+        "type:ci-build",
+        "type:docs",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:deepseek",
+          "matched": "dsv4",
+          "pattern": "\\b(deepseek|ds[-_. ]?v[34]|dsv[34]|deepseek[-_ ]?r1|dsr1)\\b",
+          "rule": "deepseek",
+          "source": "title"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:docs",
+          "matched": ".md",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "Enable",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "[atom-vllm] Enable dsv4",
+      "url": "https://github.com/ROCm/ATOM/pull/1060"
+    },
+    {
+      "author": "k50112113",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 28,
+          "changes": 50,
+          "deletions": 22,
+          "filename": "atom/model_ops/attention_mha.py",
+          "status": "modified"
+        },
+        {
+          "additions": 4,
+          "changes": 5,
+          "deletions": 1,
+          "filename": "atom/model_ops/attentions/aiter_attention.py",
+          "status": "modified"
+        },
+        {
+          "additions": 17,
+          "changes": 24,
+          "deletions": 7,
+          "filename": "atom/model_ops/attentions/triton_mha.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "7451d8f8d566b8b5e301646c5a56d671f3c41aba",
+        "648be586ae7aa2870d504d394d4d082fbfa0d8cf",
+        "3cec5d1dcb7f9ccba1cc15edff9d1c3388830dc7"
+      ],
+      "labels": [
+        "backend:aiter",
+        "backend:triton",
+        "component:attention",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:feature"
+      ],
+      "merge_commit_sha": "d297064625f9c2f085b4680a22bf9f9dd725954f",
+      "merged_at": "2026-06-09T13:57:39Z",
+      "number": 1108,
+      "opened_at": "2026-06-05T19:46:56Z",
+      "primary_labels": [
+        "backend:aiter",
+        "backend:triton",
+        "component:attention",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "backend:aiter",
+          "matched": "aiter",
+          "pattern": "aiter",
+          "rule": "aiter",
+          "source": "path"
+        },
+        {
+          "label": "backend:triton",
+          "matched": "triton",
+          "pattern": "triton",
+          "rule": "triton",
+          "source": "path"
+        },
+        {
+          "label": "backend:triton",
+          "matched": "Triton",
+          "pattern": "\\btriton\\b",
+          "rule": "triton-text",
+          "source": "title"
+        },
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:attention",
+          "matched": "Attention",
+          "pattern": "\\b(attention|attn|fmha|mha|mqa|gqa)\\b",
+          "rule": "attention-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:feature",
+          "matched": "support",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "[Triton] Unified Attention support",
+      "url": "https://github.com/ROCm/ATOM/pull/1108"
+    },
+    {
+      "author": "JiaoliangYu",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 47,
+          "changes": 75,
+          "deletions": 28,
+          "filename": "atom/model_engine/model_runner.py",
+          "status": "modified"
+        },
+        {
+          "additions": 144,
+          "changes": 144,
+          "deletions": 0,
+          "filename": "atom/utils/forward_context.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "6e2e1c73f76d8737e064394a1fbd3a54a6e237be",
+        "4e15af62916de37c26e0752a8261ea8d484cddbe",
+        "5e2c7111be7466a85277aae03a79cb3beed0b9f3"
+      ],
+      "labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:refactor"
+      ],
+      "merge_commit_sha": "09e82c0ec33f7c70b210bf9b7d3eab496bbf7ea8",
+      "merged_at": "2026-06-09T13:58:28Z",
+      "number": 1120,
+      "opened_at": "2026-06-07T06:22:43Z",
+      "primary_labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:refactor"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:refactor",
+          "matched": "refactor",
+          "pattern": "\\b(refactor|cleanup|rename|reorganize)\\b",
+          "rule": "refactor",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "refactor: unify cudagraph-vs-eager dispatch via ForwardMode",
+      "url": "https://github.com/ROCm/ATOM/pull/1120"
+    },
+    {
+      "author": "k50112113",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "atom/model_engine/model_runner.py",
+          "status": "modified"
+        },
+        {
+          "additions": 26,
+          "changes": 34,
+          "deletions": 8,
+          "filename": "atom/model_ops/attention_mha.py",
+          "status": "modified"
+        },
+        {
+          "additions": 18,
+          "changes": 18,
+          "deletions": 0,
+          "filename": "atom/model_ops/attentions/aiter_attention.py",
+          "status": "modified"
+        },
+        {
+          "additions": 29,
+          "changes": 37,
+          "deletions": 8,
+          "filename": "atom/model_ops/attentions/triton_mha.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "23e2a0be0394fb224fefe54bf86787d5ea2ba91f",
+        "6e72c642378c4188ce1ade7e06b23200d35abe4d",
+        "bc0c6447270f2521f78a00e836b6a45d296dc265",
+        "1c829161146fe2b3a0ec39d91c07e1caa2bf8f64",
+        "9f3ba1a86e71253d2976d6eeb3cffb059fa199cd",
+        "73f38a7d5916979a960c7b6696dbafb2140e84db",
+        "a4ec865686442b1cd6114b38edc2e6f762d3761f",
+        "ca1257a98cde158aac2da4960f977d9c05996788"
+      ],
+      "labels": [
+        "backend:aiter",
+        "backend:gluon",
+        "backend:triton",
+        "component:attention",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:bugfix"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1144,
+      "opened_at": "2026-06-09T19:56:37Z",
+      "primary_labels": [
+        "backend:aiter",
+        "backend:gluon",
+        "backend:triton",
+        "component:attention",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:bugfix"
+      ],
+      "reasons": [
+        {
+          "label": "backend:aiter",
+          "matched": "aiter",
+          "pattern": "aiter",
+          "rule": "aiter",
+          "source": "path"
+        },
+        {
+          "label": "backend:gluon",
+          "matched": "Gluon",
+          "pattern": "\\bgluon\\b",
+          "rule": "gluon-text",
+          "source": "title"
+        },
+        {
+          "label": "backend:triton",
+          "matched": "triton",
+          "pattern": "triton",
+          "rule": "triton",
+          "source": "path"
+        },
+        {
+          "label": "backend:triton",
+          "matched": "Triton",
+          "pattern": "\\btriton\\b",
+          "rule": "triton-text",
+          "source": "title"
+        },
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:attention",
+          "matched": "Attention",
+          "pattern": "\\b(attention|attn|fmha|mha|mqa|gqa)\\b",
+          "rule": "attention-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "bug",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        }
+      ],
+      "state": "open_pr",
+      "title": "[Triton] [Gluon] [GFX12] ATOM_USE_UNIFIED_ATTN=1 force block_size for Unified Attention and resolve bug in prefill",
+      "url": "https://github.com/ROCm/ATOM/pull/1144"
+    },
+    {
+      "author": "JiaoliangYu",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 6,
+          "changes": 6,
+          "deletions": 0,
+          "filename": "atom/utils/forward_context.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "983161faa032bb422d05301e68c8a243d161ea84"
+      ],
+      "labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix"
+      ],
+      "merge_commit_sha": "be41276ff9f21a01d28d17cd9b79cdf2b9c72eef",
+      "merged_at": "2026-06-10T04:55:46Z",
+      "number": 1146,
+      "opened_at": "2026-06-10T03:36:42Z",
+      "primary_labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "fix: check slot_mapping none for dummy execution",
+      "url": "https://github.com/ROCm/ATOM/pull/1146"
+    },
+    {
+      "author": "junhaha666",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 2,
+          "changes": 3,
+          "deletions": 1,
+          "filename": "atom/model_loader/loader.py",
+          "status": "modified"
+        },
+        {
+          "additions": 73,
+          "changes": 128,
+          "deletions": 55,
+          "filename": "atom/models/deepseek_v4.py",
+          "status": "modified"
+        },
+        {
+          "additions": 9,
+          "changes": 10,
+          "deletions": 1,
+          "filename": "atom/models/deepseek_v4_mtp.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "ef60ca52208e2a7e04b7708232e6b74f1281ceea",
+        "d4bbdb976340e4a11c24c5acff24946ca31fb4d8",
+        "2d24315847f4d923d6acb7273e85d66968144458",
+        "ae596e302350b436760e315e2e53b45ad797497f"
+      ],
+      "labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:perf"
+      ],
+      "merge_commit_sha": "0926941f93b52513fdc773f86dc9980bb03cf315",
+      "merged_at": "2026-06-10T05:24:31Z",
+      "number": 1140,
+      "opened_at": "2026-06-09T10:32:09Z",
+      "primary_labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:perf"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:perf",
+          "matched": "perf",
+          "pattern": "\\b(perf|performance|optim|faster|speed|reduce|overhead)\\b",
+          "rule": "perf",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "perf(v4): Use hc_state to transfer hidden_state and residual between layers for using mhc_post/pre fused",
+      "url": "https://github.com/ROCm/ATOM/pull/1140"
+    },
+    {
+      "author": "azaidy",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 49,
+          "changes": 55,
+          "deletions": 6,
+          "filename": "atom/model_ops/linear.py",
+          "status": "modified"
+        },
+        {
+          "additions": 5,
+          "changes": 5,
+          "deletions": 0,
+          "filename": "atom/utils/envs.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "f11a7e21c39871b45e5c9fe925ec02e3fd834131"
+      ],
+      "labels": [
+        "backend:gluon",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:feature"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1149,
+      "opened_at": "2026-06-10T05:52:05Z",
+      "primary_labels": [
+        "backend:gluon",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "backend:gluon",
+          "matched": "gluon",
+          "pattern": "\\bgluon\\b",
+          "rule": "gluon-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:feature",
+          "matched": "Add",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "open_pr",
+      "title": "Add bf16 gluon GEMM",
+      "url": "https://github.com/ROCm/ATOM/pull/1149"
+    },
+    {
+      "author": "ganyi1996ppo",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": ".github/benchmark/oot_benchmark_models.json",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/benchmark/oot_models_accuracy.json",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": ".github/workflows/atom-vllm-accuracy-validation.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/workflows/atom-vllm-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 12,
+          "changes": 12,
+          "deletions": 0,
+          "filename": "atom/model_ops/attention_mha.py",
+          "status": "modified"
+        },
+        {
+          "additions": 47,
+          "changes": 48,
+          "deletions": 1,
+          "filename": "atom/model_ops/layernorm.py",
+          "status": "modified"
+        },
+        {
+          "additions": 166,
+          "changes": 185,
+          "deletions": 19,
+          "filename": "atom/models/minimax_m2.py",
+          "status": "modified"
+        },
+        {
+          "additions": 60,
+          "changes": 60,
+          "deletions": 0,
+          "filename": "atom/plugin/vllm/attention/layer_mha.py",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "recipes/atom_vllm/GPT-OSS.md",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "66dcdff72f927a6c58a718f4060181e130b26728",
+        "e7aaa612f7a2a6379106e8472de88eedfab30ac1",
+        "dc0d50d21786c7e97b212d218540854dbd071c4c",
+        "0721cf69f3554f5f772c2cd15a909d461574fb97",
+        "c4bc53e7ed7eac764f00d16218b132d6df637b80",
+        "0516f3b9d5273138884d314b73f115fddd35c03b",
+        "536c192fb744081f438f23fc047fb0f6b8078449"
+      ],
+      "labels": [
+        "component:attention",
+        "component:plugin",
+        "component:quantization",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1150,
+      "opened_at": "2026-06-10T06:17:35Z",
+      "primary_labels": [
+        "component:attention",
+        "component:plugin",
+        "component:quantization",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "reasons": [
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "component:quantization",
+          "matched": "quant",
+          "pattern": "\\b(quant|fp8|fp4|int4|mxfp|w8a8|awq)\\b",
+          "rule": "quantization-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:docs",
+          "matched": ".md",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        }
+      ],
+      "state": "open_pr",
+      "title": "minimax allreduce rmsnorm quant",
+      "url": "https://github.com/ROCm/ATOM/pull/1150"
+    },
+    {
+      "author": "jiayyu",
+      "auxiliary_labels": [
+        "type:tests"
+      ],
+      "changed_files": [
+        {
+          "additions": 14,
+          "changes": 14,
+          "deletions": 0,
+          "filename": "atom/config.py",
+          "status": "modified"
+        },
+        {
+          "additions": 12,
+          "changes": 12,
+          "deletions": 0,
+          "filename": "atom/model_engine/arg_utils.py",
+          "status": "modified"
+        },
+        {
+          "additions": 12,
+          "changes": 16,
+          "deletions": 4,
+          "filename": "atom/model_engine/scheduler.py",
+          "status": "modified"
+        },
+        {
+          "additions": 11,
+          "changes": 12,
+          "deletions": 1,
+          "filename": "atom/model_ops/attention_mla.py",
+          "status": "modified"
+        },
+        {
+          "additions": 12,
+          "changes": 15,
+          "deletions": 3,
+          "filename": "atom/model_ops/attentions/deepseek_v4_attn.py",
+          "status": "modified"
+        },
+        {
+          "additions": 15,
+          "changes": 17,
+          "deletions": 2,
+          "filename": "atom/model_ops/v4_kernels/paged_prefill_indices.py",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "tests/conftest.py",
+          "status": "modified"
+        },
+        {
+          "additions": 127,
+          "changes": 127,
+          "deletions": 0,
+          "filename": "tests/test_scheduler.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "5068b88468b75254f5719c7307e1efdd94253ed6",
+        "c57b6d6705d8829ec81220df5e3e2d2cebb0bad6",
+        "f13c0697e0e68b4510032f4143932364e64b4022",
+        "0ac25d7d38dc4656529f4d4ae2df9af383e40feb",
+        "0ae064ed08d0e5b10e43b995e39907f9c930ee68"
+      ],
+      "labels": [
+        "component:attention",
+        "component:kernels",
+        "component:mla",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:feature",
+        "type:tests"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1152,
+      "opened_at": "2026-06-10T06:41:43Z",
+      "primary_labels": [
+        "component:attention",
+        "component:kernels",
+        "component:mla",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:kernels",
+          "matched": "kernels/",
+          "pattern": "atom/ops/|kernels/|csrc/",
+          "rule": "kernels",
+          "source": "path"
+        },
+        {
+          "label": "component:mla",
+          "matched": "mla",
+          "pattern": "mla|latent_attention|sparse_mla",
+          "rule": "mla",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:feature",
+          "matched": "feat",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        },
+        {
+          "label": "type:tests",
+          "matched": "tests/",
+          "pattern": "(^|/)tests/|test_",
+          "rule": "tests",
+          "source": "path"
+        }
+      ],
+      "state": "open_pr",
+      "title": "feat: support chunk long prefill",
+      "url": "https://github.com/ROCm/ATOM/pull/1152"
+    },
+    {
+      "author": "qichu-yun",
+      "auxiliary_labels": [
+        "type:tests"
+      ],
+      "changed_files": [
+        {
+          "additions": 2,
+          "changes": 3,
+          "deletions": 1,
+          "filename": "atom/plugin/register.py",
+          "status": "modified"
+        },
+        {
+          "additions": 19,
+          "changes": 19,
+          "deletions": 0,
+          "filename": "atom/plugin/sglang/prepare.py",
+          "status": "modified"
+        },
+        {
+          "additions": 4,
+          "changes": 4,
+          "deletions": 0,
+          "filename": "atom/plugin/sglang/runtime/model_arch.py",
+          "status": "modified"
+        },
+        {
+          "additions": 119,
+          "changes": 119,
+          "deletions": 0,
+          "filename": "recipes/atom_sglang/DeepSeek-V3.2.md",
+          "status": "added"
+        },
+        {
+          "additions": 106,
+          "changes": 106,
+          "deletions": 0,
+          "filename": "recipes/atom_sglang/GLM-5.md",
+          "status": "added"
+        },
+        {
+          "additions": 24,
+          "changes": 24,
+          "deletions": 0,
+          "filename": "tests/plugin/test_sglang_model_wrapper.py",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "tests/plugin/test_sglang_prepare_hooks.py",
+          "status": "modified"
+        },
+        {
+          "additions": 52,
+          "changes": 52,
+          "deletions": 0,
+          "filename": "tests/plugin/test_sglang_prepare_model.py",
+          "status": "modified"
+        },
+        {
+          "additions": 3,
+          "changes": 3,
+          "deletions": 0,
+          "filename": "tests/plugin/test_sglang_register.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "ee96656c884f202386c4b910950ee0c2bf33ca74",
+        "4c92bed0454dcb37b18a8ed0b9137ffaa750a901",
+        "8cfe64d4e3cf3f88d28adee4b19341d5e8c60508"
+      ],
+      "labels": [
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:docs",
+        "type:feature",
+        "type:tests"
+      ],
+      "merge_commit_sha": "74eb6bcd4b428e4043e6bd492ff3edfce7bebfbf",
+      "merged_at": "2026-06-10T08:40:05Z",
+      "number": 1145,
+      "opened_at": "2026-06-10T03:32:21Z",
+      "primary_labels": [
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:docs",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "plugin",
+          "pattern": "\\bplugin|vllm.plugin\\b",
+          "rule": "plugin-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:docs",
+          "matched": ".md",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "Feat",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        },
+        {
+          "label": "type:tests",
+          "matched": "tests/",
+          "pattern": "(^|/)tests/|test_",
+          "rule": "tests",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "[Feat] Support GLM5 in SGLang plugin",
+      "url": "https://github.com/ROCm/ATOM/pull/1145"
+    },
+    {
+      "author": "wanzhenchn",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 245,
+          "changes": 245,
+          "deletions": 0,
+          "filename": ".github/dashboard/atomesh_mocker_index.html",
+          "status": "added"
+        },
+        {
+          "additions": 315,
+          "changes": 315,
+          "deletions": 0,
+          "filename": ".github/scripts/atomesh_mocker_benchmark.sh",
+          "status": "added"
+        },
+        {
+          "additions": 135,
+          "changes": 135,
+          "deletions": 0,
+          "filename": ".github/scripts/atomesh_mocker_benchmark_summary.py",
+          "status": "added"
+        },
+        {
+          "additions": 4,
+          "changes": 4,
+          "deletions": 0,
+          "filename": ".github/workflows/atom-sglang-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 4,
+          "changes": 4,
+          "deletions": 0,
+          "filename": ".github/workflows/atom-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 4,
+          "changes": 4,
+          "deletions": 0,
+          "filename": ".github/workflows/atom-vllm-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 791,
+          "changes": 791,
+          "deletions": 0,
+          "filename": ".github/workflows/atomesh-accuracy-validation.yaml",
+          "status": "added"
+        },
+        {
+          "additions": 271,
+          "changes": 271,
+          "deletions": 0,
+          "filename": ".github/workflows/atomesh-mocker-benchmark.yaml",
+          "status": "added"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/mocker/fixtures/grpc_pd_generate.json",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/mocker/fixtures/grpc_regular_generate.json",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/mocker/fixtures/grpc_regular_generate_vllm.json",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/mocker/fixtures/http_pd_chat.json",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/mocker/fixtures/http_regular_chat.json",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "atom/mesh/mocker/fixtures/http_regular_chat_streaming.json",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/mocker/fixtures/http_regular_completion.json",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "atom/mesh/mocker/fixtures/http_regular_generate.json",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "1f9e2198a33d342d3bdae4a25b9b804dd9507452",
+        "0f839101d093666ff414b873862c164a88bca493",
+        "88b5966eb3860ba8dd0ff296ea41b7974700fd35"
+      ],
+      "labels": [
+        "component:mesh",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1159,
+      "opened_at": "2026-06-10T08:59:34Z",
+      "primary_labels": [
+        "component:mesh",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:mesh",
+          "matched": "mesh/",
+          "pattern": "atom_mesh|mesh/",
+          "rule": "mesh",
+          "source": "path"
+        },
+        {
+          "label": "component:mesh",
+          "matched": "mesh",
+          "pattern": "\\batom.mesh|mesh\\b",
+          "rule": "mesh-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "add",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "open_pr",
+      "title": "ci(mesh): add Atomesh accuracy and benchmark workflows",
+      "url": "https://github.com/ROCm/ATOM/pull/1159"
+    },
+    {
+      "author": "zhuyuhua-v",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 435,
+          "changes": 728,
+          "deletions": 293,
+          "filename": ".github/benchmark/sglang_benchmark_models.json",
+          "status": "modified"
+        },
+        {
+          "additions": 70,
+          "changes": 92,
+          "deletions": 22,
+          "filename": ".github/benchmark/sglang_models_accuracy.json",
+          "status": "modified"
+        },
+        {
+          "additions": 30,
+          "changes": 32,
+          "deletions": 2,
+          "filename": ".github/scripts/atom_sglang_mesh_benchmark.sh",
+          "status": "modified"
+        },
+        {
+          "additions": 85,
+          "changes": 110,
+          "deletions": 25,
+          "filename": ".github/workflows/atom-sglang-accuracy-validation.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 176,
+          "changes": 229,
+          "deletions": 53,
+          "filename": ".github/workflows/atom-sglang-benchmark.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 11,
+          "changes": 14,
+          "deletions": 3,
+          "filename": ".github/workflows/atom-sglang-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 128,
+          "changes": 155,
+          "deletions": 27,
+          "filename": "recipes/atom_sglang/DeepSeek-R1.md",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "6ed3122e0f7b36adeb9115ad2450dc34808d0443",
+        "7c9e5327937bad2f006cda87045a6a67e444f22b",
+        "255b87864aaff982871d37b9d1dc949141ba93fd",
+        "6ce4b625fbb115918e39bfc829a8c8e35f70ae1d",
+        "8feaefdf0529bc41bae36934383bf7d415a676c4",
+        "acd0ae60f00860858b15b16b367f1c5287ea26e9",
+        "1bca8e28fcf10ba225256a93da6b5929ce5c197c",
+        "5cae4797d1e1e91a945800f8de58164674a284df"
+      ],
+      "labels": [
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "merge_commit_sha": "f6c69e1eef348362a39ec3da688c11c599a7d5db",
+      "merged_at": "2026-06-10T09:26:32Z",
+      "number": 975,
+      "opened_at": "2026-05-29T08:49:41Z",
+      "primary_labels": [
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "reasons": [
+        {
+          "label": "component:quantization",
+          "matched": "fp4",
+          "pattern": "\\b(quant|fp8|fp4|int4|mxfp|w8a8|awq)\\b",
+          "rule": "quantization-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:docs",
+          "matched": ".md",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "[sgl][recipe]update sglang-atom ds fp4 recipe",
+      "url": "https://github.com/ROCm/ATOM/pull/975"
+    },
+    {
+      "author": "PerryZhang01",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/benchmark/models.json",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/benchmark/models_accuracy.json",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/benchmark/oot_models_accuracy.json",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": ".github/workflows/atom-vllm-accuracy-validation.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "recipes/GPT-OSS.md",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "f41310a58e3696b93468b7e1c73b816e0bdc61d4"
+      ],
+      "labels": [
+        "backend:aiter",
+        "kernel:misc",
+        "merged",
+        "model:gpt-oss",
+        "type:bugfix",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "merge_commit_sha": "5131f1c80962de63e02bafcc49f369ca292cdb30",
+      "merged_at": "2026-06-10T10:07:13Z",
+      "number": 1162,
+      "opened_at": "2026-06-10T10:07:04Z",
+      "primary_labels": [
+        "backend:aiter",
+        "kernel:misc",
+        "merged",
+        "model:gpt-oss",
+        "type:bugfix",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "reasons": [
+        {
+          "label": "backend:aiter",
+          "matched": "aiter",
+          "pattern": "\\baiter\\b",
+          "rule": "aiter-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:gpt-oss",
+          "matched": "gpt-oss",
+          "pattern": "\\bgpt.?oss|quark\\b",
+          "rule": "gpt-oss",
+          "source": "title"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:docs",
+          "matched": ".md",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "[fix](gpt-oss): recover model runner v2 due to aiter fix",
+      "url": "https://github.com/ROCm/ATOM/pull/1162"
+    },
+    {
+      "author": "xytpai",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 12,
+          "changes": 12,
+          "deletions": 0,
+          "filename": "atom/model_ops/attention_mha.py",
+          "status": "modified"
+        },
+        {
+          "additions": 94,
+          "changes": 99,
+          "deletions": 5,
+          "filename": "atom/models/minimax_m2.py",
+          "status": "modified"
+        },
+        {
+          "additions": 60,
+          "changes": 60,
+          "deletions": 0,
+          "filename": "atom/plugin/vllm/attention/layer_mha.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "d73a09b1e40daa55bb5d1c70395f1625c37f4fb8",
+        "5981ad9a783d77dc660d96093199a2f6994f2b59",
+        "faa7c30ded800cbe68b1e37d0b772db415bf6683",
+        "1abbf445e4d0852a3e44e1a94a1046a860169fdb",
+        "231176bc449869acb82f98c343f095428d323c15",
+        "e83ca5150fdf07674ab30b57e89bf3fa89a26ce4",
+        "e5e93eac715059ad85c9abb6663f9f33accec639",
+        "2022861b35eab252155329fd2c3304830c5d19e5"
+      ],
+      "labels": [
+        "component:attention",
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:feature"
+      ],
+      "merge_commit_sha": "dc0d50d21786c7e97b212d218540854dbd071c4c",
+      "merged_at": "2026-06-10T10:38:50Z",
+      "number": 1163,
+      "opened_at": "2026-06-10T10:37:11Z",
+      "primary_labels": [
+        "component:attention",
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:feature",
+          "matched": "support",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "minimax ops: support qknorm+allreduce+rope+group_quant+cache_shuffle_write fusion pattern",
+      "url": "https://github.com/ROCm/ATOM/pull/1163"
+    },
+    {
+      "author": "junyyang-amd",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 6,
+          "changes": 6,
+          "deletions": 0,
+          "filename": ".github/workflows/atom-vllm-benchmark.yaml",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "99d2d43a2a08aa4b5ba122d18390713c91494370"
+      ],
+      "labels": [
+        "component:mtp",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "merge_commit_sha": "24cf8ebb21390dd03ea7ce24dc2602f8a79b7234",
+      "merged_at": "2026-06-10T11:09:22Z",
+      "number": 1151,
+      "opened_at": "2026-06-10T06:18:19Z",
+      "primary_labels": [
+        "component:mtp",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:mtp",
+          "matched": "MTP",
+          "pattern": "\\bmtp\\b|multi.token.prediction",
+          "rule": "mtp",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "Add",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "[atom-vllm-benchmark] Add temperature=0 for vLLM bench MTP models",
+      "url": "https://github.com/ROCm/ATOM/pull/1151"
+    },
+    {
+      "author": "zejunchen-zejun",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/benchmark/oot_benchmark_models.json",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/benchmark/oot_models_accuracy.json",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/workflows/atom-vllm-accuracy-validation.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/workflows/atom-vllm-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 3,
+          "changes": 4,
+          "deletions": 1,
+          "filename": "recipes/atom_vllm/DeepSeek-V4.md",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "072a7d3bf6a49a6be48c51546c229cdf2941890e"
+      ],
+      "labels": [
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1164,
+      "opened_at": "2026-06-10T11:57:31Z",
+      "primary_labels": [
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:docs",
+          "matched": ".md",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        }
+      ],
+      "state": "open_pr",
+      "title": "[atom-vllm] set max num seqs to 512 as upper limit with 0.9 gpu mem utilization",
+      "url": "https://github.com/ROCm/ATOM/pull/1164"
+    },
+    {
+      "author": "Jasen2201",
+      "auxiliary_labels": [
+        "type:tests"
+      ],
+      "changed_files": [
+        {
+          "additions": 15,
+          "changes": 17,
+          "deletions": 2,
+          "filename": "atom/entrypoints/openai/api_server.py",
+          "status": "modified"
+        },
+        {
+          "additions": 3,
+          "changes": 3,
+          "deletions": 0,
+          "filename": "atom/entrypoints/openai/protocol.py",
+          "status": "modified"
+        },
+        {
+          "additions": 21,
+          "changes": 22,
+          "deletions": 1,
+          "filename": "atom/entrypoints/openai/serving_chat.py",
+          "status": "modified"
+        },
+        {
+          "additions": 45,
+          "changes": 45,
+          "deletions": 0,
+          "filename": "tests/entrypoints/test_protocol.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "e57e797546b4d60e6207726be7734b4a10835691",
+        "7be211c657342e4b0735c89e663ef7460deb9029"
+      ],
+      "labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:feature",
+        "type:tests"
+      ],
+      "merge_commit_sha": "12c888225c29f885e3272dddcd1892d634eae001",
+      "merged_at": "2026-06-10T12:24:22Z",
+      "number": 1147,
+      "opened_at": "2026-06-10T04:47:28Z",
+      "primary_labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        },
+        {
+          "label": "type:feature",
+          "matched": "add",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        },
+        {
+          "label": "type:tests",
+          "matched": "tests/",
+          "pattern": "(^|/)tests/|test_",
+          "rule": "tests",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "fix: add kv_transfer_params support to /v1/chat/completions for PD di\u2026",
+      "url": "https://github.com/ROCm/ATOM/pull/1147"
+    },
+    {
+      "author": "haoyangli0109",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 12,
+          "changes": 12,
+          "deletions": 0,
+          "filename": ".github/benchmark/models_accuracy.json",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "aec26ba351d6b272761f995b556ef2233809bf90"
+      ],
+      "labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "merge_commit_sha": "261178733727b50b1944ca89f4c9c81766fa1732",
+      "merged_at": "2026-06-10T12:28:54Z",
+      "number": 1158,
+      "opened_at": "2026-06-10T08:36:38Z",
+      "primary_labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "add",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "[CI] add nightly test for online quantization",
+      "url": "https://github.com/ROCm/ATOM/pull/1158"
+    },
+    {
+      "author": "ZhangLirong-amd",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 9,
+          "changes": 12,
+          "deletions": 3,
+          "filename": "atom/model_engine/model_runner.py",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "atom/model_ops/attention_mla.py",
+          "status": "modified"
+        },
+        {
+          "additions": 117,
+          "changes": 117,
+          "deletions": 0,
+          "filename": "atom/model_ops/attentions/aiter_attention.py",
+          "status": "modified"
+        },
+        {
+          "additions": 75,
+          "changes": 75,
+          "deletions": 0,
+          "filename": "atom/model_ops/attentions/aiter_mla.py",
+          "status": "modified"
+        },
+        {
+          "additions": 28,
+          "changes": 39,
+          "deletions": 11,
+          "filename": "atom/model_ops/attentions/deepseek_v4_attn.py",
+          "status": "modified"
+        },
+        {
+          "additions": 7,
+          "changes": 7,
+          "deletions": 0,
+          "filename": "atom/utils/envs.py",
+          "status": "modified"
+        },
+        {
+          "additions": 8,
+          "changes": 8,
+          "deletions": 0,
+          "filename": "atom/utils/tbo/__init__.py",
+          "status": "modified"
+        },
+        {
+          "additions": 89,
+          "changes": 89,
+          "deletions": 0,
+          "filename": "atom/utils/tbo/prefill_token_split.py",
+          "status": "added"
+        },
+        {
+          "additions": 76,
+          "changes": 83,
+          "deletions": 7,
+          "filename": "atom/utils/tbo/ubatch_splitting.py",
+          "status": "modified"
+        },
+        {
+          "additions": 30,
+          "changes": 34,
+          "deletions": 4,
+          "filename": "atom/utils/tbo/ubatching.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "5f2beb3689c8e6ba870a848a0b3ebff1f4876361",
+        "b7ee3c7f14b1dc266fb8ca02e2f9519cfdd49532",
+        "76fbf98b54391dc425b92629b256c81f4973ce2a",
+        "bb3f8971a780e55f0a73269f284fca3fea5f5dd1",
+        "cefe49944a663f91e863d200281137e3474b0c82",
+        "e59cbfad6429979dc9a67782663eb70903e361f1",
+        "9a8fdd609316d60266330bed69ab7f24af1273c1",
+        "f71a2a1003d7bda00371d288e46b1b05f96297ea",
+        "482c407c41949afdc1f9267d0eba4e8d98316483",
+        "d6c52a49852d3200a961c5850679f88d5ae27979"
+      ],
+      "labels": [
+        "backend:aiter",
+        "component:attention",
+        "component:mla",
+        "kernel:misc",
+        "merged",
+        "model:deepseek",
+        "type:feature"
+      ],
+      "merge_commit_sha": "7012c7276b6fcfa4ef12ba6ca517d696acdf7ea9",
+      "merged_at": "2026-06-10T12:31:10Z",
+      "number": 1142,
+      "opened_at": "2026-06-09T11:16:56Z",
+      "primary_labels": [
+        "backend:aiter",
+        "component:attention",
+        "component:mla",
+        "kernel:misc",
+        "merged",
+        "model:deepseek",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "backend:aiter",
+          "matched": "aiter",
+          "pattern": "aiter",
+          "rule": "aiter",
+          "source": "path"
+        },
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:mla",
+          "matched": "mla",
+          "pattern": "mla|latent_attention|sparse_mla",
+          "rule": "mla",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:deepseek",
+          "matched": "Deepseek",
+          "pattern": "\\b(deepseek|ds[-_. ]?v[34]|dsv[34]|deepseek[-_ ]?r1|dsr1)\\b",
+          "rule": "deepseek",
+          "source": "title"
+        },
+        {
+          "label": "type:feature",
+          "matched": "feat",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "feat(tbo):TBO optimization, token-midpoint prefill ubatch split in Deepseek v4",
+      "url": "https://github.com/ROCm/ATOM/pull/1142"
+    },
+    {
+      "author": "ZLkanyo009",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 9,
+          "changes": 12,
+          "deletions": 3,
+          "filename": "atom/model_ops/topK.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "ff34edef1f311c6926d07aaae97597fa881f40b9"
+      ],
+      "labels": [
+        "component:moe",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix"
+      ],
+      "merge_commit_sha": "087b82d9c1f630e79149ba37e6213257ec9a76f8",
+      "merged_at": "2026-06-10T12:58:10Z",
+      "number": 1155,
+      "opened_at": "2026-06-10T07:47:30Z",
+      "primary_labels": [
+        "component:moe",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix"
+      ],
+      "reasons": [
+        {
+          "label": "component:moe",
+          "matched": "expert",
+          "pattern": "\\bmoe\\b|mixture.of.experts|\\bexpert\\b",
+          "rule": "moe-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "Fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "[Fix] Fix the incorrect layerwise-share-expert-fusion",
+      "url": "https://github.com/ROCm/ATOM/pull/1155"
+    },
+    {
+      "author": "PerryZhang01",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": ".github/benchmark/oot_benchmark_models.json",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/benchmark/oot_models_accuracy.json",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": ".github/workflows/atom-vllm-accuracy-validation.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/workflows/atom-vllm-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "recipes/atom_vllm/GPT-OSS.md",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "b124ca7f16d73d12fa2dd2dd64510e91d278151d"
+      ],
+      "labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "merge_commit_sha": "0721cf69f3554f5f772c2cd15a909d461574fb97",
+      "merged_at": "2026-06-10T13:33:29Z",
+      "number": 1165,
+      "opened_at": "2026-06-10T13:29:05Z",
+      "primary_labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:docs",
+          "matched": ".md",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "[fix](gemm): fix model runner v2",
+      "url": "https://github.com/ROCm/ATOM/pull/1165"
+    },
+    {
+      "author": "whx-sjtu",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 54,
+          "changes": 54,
+          "deletions": 0,
+          "filename": "atom/plugin/vllm/cudagraph_phase_patch.py",
+          "status": "added"
+        },
+        {
+          "additions": 30,
+          "changes": 52,
+          "deletions": 22,
+          "filename": "atom/plugin/vllm/deepseek_v4_bridge.py",
+          "status": "modified"
+        },
+        {
+          "additions": 6,
+          "changes": 6,
+          "deletions": 0,
+          "filename": "atom/plugin/vllm/register.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "c1970326fd8168f4e9a57754c993c2a830645d1a"
+      ],
+      "labels": [
+        "component:plugin",
+        "kernel:misc",
+        "model:deepseek",
+        "open_pr",
+        "type:feature"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1166,
+      "opened_at": "2026-06-10T13:37:29Z",
+      "primary_labels": [
+        "component:plugin",
+        "kernel:misc",
+        "model:deepseek",
+        "open_pr",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:deepseek",
+          "matched": "dsv4",
+          "pattern": "\\b(deepseek|ds[-_. ]?v[34]|dsv[34]|deepseek[-_ ]?r1|dsr1)\\b",
+          "rule": "deepseek",
+          "source": "title"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:feature",
+          "matched": "enable",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "open_pr",
+      "title": "[atom-vllm] enable multistream for dsv4",
+      "url": "https://github.com/ROCm/ATOM/pull/1166"
+    },
+    {
+      "author": "whx-sjtu",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 35,
+          "changes": 62,
+          "deletions": 27,
+          "filename": "atom/plugin/vllm/deepseek_v4_ops.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "018495474dd13fdac6d01d08661a537b7555af03"
+      ],
+      "labels": [
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:deepseek",
+        "type:bugfix"
+      ],
+      "merge_commit_sha": "822028081e30215fd226af83c03c90c383028b0d",
+      "merged_at": "2026-06-10T14:35:04Z",
+      "number": 1154,
+      "opened_at": "2026-06-10T07:27:38Z",
+      "primary_labels": [
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:deepseek",
+        "type:bugfix"
+      ],
+      "reasons": [
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:deepseek",
+          "matched": "dsv4",
+          "pattern": "\\b(deepseek|ds[-_. ]?v[34]|dsv[34]|deepseek[-_ ]?r1|dsr1)\\b",
+          "rule": "deepseek",
+          "source": "title"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "[atom-vllm] fix dsv4 accu",
+      "url": "https://github.com/ROCm/ATOM/pull/1154"
+    },
+    {
+      "author": "gyohuangxin",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 3,
+          "changes": 3,
+          "deletions": 0,
+          "filename": ".github/workflows/atom-sglang-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 5,
+          "changes": 5,
+          "deletions": 0,
+          "filename": ".github/workflows/atom-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 3,
+          "changes": 3,
+          "deletions": 0,
+          "filename": ".github/workflows/atom-vllm-test.yaml",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "532d57f319826d2aeafde067551e95c881a50701",
+        "c06d1a331db54032c0aae87bb6cb409746bfa3a5",
+        "9345c8a8b4d54740d00d84760720bbf93ab89af3",
+        "0ea053506955faa6bf72ba443b53100c8df97300"
+      ],
+      "labels": [
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build"
+      ],
+      "merge_commit_sha": "b423f1de4f6f83a36a3afb579f89c5fcba8471eb",
+      "merged_at": "2026-06-10T14:41:14Z",
+      "number": 1099,
+      "opened_at": "2026-06-05T08:23:26Z",
+      "primary_labels": [
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build"
+      ],
+      "reasons": [
+        {
+          "label": "component:plugin",
+          "matched": "plugin",
+          "pattern": "\\bplugin|vllm.plugin\\b",
+          "rule": "plugin-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "ci: skip ATOM Test for plugin-only PRs",
+      "url": "https://github.com/ROCm/ATOM/pull/1099"
+    },
+    {
+      "author": "ZhiweiYan-96",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 24,
+          "changes": 48,
+          "deletions": 24,
+          "filename": ".github/benchmark/sglang_benchmark_models.json",
+          "status": "modified"
+        },
+        {
+          "additions": 77,
+          "changes": 82,
+          "deletions": 5,
+          "filename": "atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py",
+          "status": "modified"
+        },
+        {
+          "additions": 29,
+          "changes": 34,
+          "deletions": 5,
+          "filename": "atom/plugin/sglang/models/deepseek_mla_attention.py",
+          "status": "modified"
+        },
+        {
+          "additions": 64,
+          "changes": 65,
+          "deletions": 1,
+          "filename": "atom/plugin/sglang/models/deepseek_mla_forward.py",
+          "status": "modified"
+        },
+        {
+          "additions": 7,
+          "changes": 14,
+          "deletions": 7,
+          "filename": "recipes/atom_sglang/DeepSeek-R1.md",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "c8d5628770a6154d349cba636f000d37368ec059",
+        "3d4bb80af93ea8594e41797b5a782a0a59be6fdc",
+        "83e8b0f55cda5f1ba7a7a946825add2dae615e05",
+        "6550194cde271922d8859126f0e580a5b03d635c"
+      ],
+      "labels": [
+        "component:attention",
+        "component:mla",
+        "component:plugin",
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "merge_commit_sha": "2754ec1775b76dc97475b0d311da819ab37ad278",
+      "merged_at": "2026-06-11T02:50:52Z",
+      "number": 1153,
+      "opened_at": "2026-06-10T07:19:44Z",
+      "primary_labels": [
+        "component:attention",
+        "component:mla",
+        "component:plugin",
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "reasons": [
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:mla",
+          "matched": "mla",
+          "pattern": "mla|latent_attention|sparse_mla",
+          "rule": "mla",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "component:quantization",
+          "matched": "fp8",
+          "pattern": "\\b(quant|fp8|fp4|int4|mxfp|w8a8|awq)\\b",
+          "rule": "quantization-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:docs",
+          "matched": ".md",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "[ATOM SGL] fp8 prefill for fp4 v2 model",
+      "url": "https://github.com/ROCm/ATOM/pull/1153"
+    },
+    {
+      "author": "Phi-C",
+      "auxiliary_labels": [
+        "type:tests"
+      ],
+      "changed_files": [
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "atom/models/minimax_m2.py",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "atom/plugin/config.py",
+          "status": "modified"
+        },
+        {
+          "additions": 63,
+          "changes": 71,
+          "deletions": 8,
+          "filename": "atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py",
+          "status": "modified"
+        },
+        {
+          "additions": 21,
+          "changes": 21,
+          "deletions": 0,
+          "filename": "atom/plugin/sglang/attention_backend/full_attention/kv_cache.py",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 7,
+          "deletions": 5,
+          "filename": "atom/plugin/sglang/models/base_model_wrapper.py",
+          "status": "modified"
+        },
+        {
+          "additions": 21,
+          "changes": 21,
+          "deletions": 0,
+          "filename": "atom/plugin/sglang/runtime/model_arch.py",
+          "status": "modified"
+        },
+        {
+          "additions": 128,
+          "changes": 128,
+          "deletions": 0,
+          "filename": "recipes/atom_sglang/MiniMax-M2.5.md",
+          "status": "added"
+        },
+        {
+          "additions": 3,
+          "changes": 3,
+          "deletions": 0,
+          "filename": "tests/plugin/test_sglang_plugin.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "334a34b171effb355b6b39c95e38955e2a3ec7e4",
+        "5d7cbd7574bc7d0976eb8d3800dc9969a0eb2bdd"
+      ],
+      "labels": [
+        "component:attention",
+        "component:plugin",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:docs",
+        "type:feature",
+        "type:tests"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1170,
+      "opened_at": "2026-06-11T06:38:27Z",
+      "primary_labels": [
+        "component:attention",
+        "component:plugin",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:docs",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "Plugin",
+          "pattern": "\\bplugin|vllm.plugin\\b",
+          "rule": "plugin-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:docs",
+          "matched": ".md",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "Feat",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        },
+        {
+          "label": "type:tests",
+          "matched": "tests/",
+          "pattern": "(^|/)tests/|test_",
+          "rule": "tests",
+          "source": "path"
+        }
+      ],
+      "state": "open_pr",
+      "title": "[Feat] Support MiniMax-M2.5 in SGLang Plugin",
+      "url": "https://github.com/ROCm/ATOM/pull/1170"
+    },
+    {
+      "author": "qichu-yun",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 26,
+          "changes": 26,
+          "deletions": 0,
+          "filename": ".github/benchmark/sglang_benchmark_models.json",
+          "status": "modified"
+        },
+        {
+          "additions": 24,
+          "changes": 24,
+          "deletions": 0,
+          "filename": ".github/benchmark/sglang_models_accuracy.json",
+          "status": "modified"
+        },
+        {
+          "additions": 30,
+          "changes": 30,
+          "deletions": 0,
+          "filename": ".github/workflows/atom-sglang-accuracy-validation.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 14,
+          "changes": 20,
+          "deletions": 6,
+          "filename": ".github/workflows/atom-sglang-benchmark.yaml",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "97be986cf4930aadaefcc34a23c25e42901174ed"
+      ],
+      "labels": [
+        "kernel:misc",
+        "model:deepseek",
+        "open_pr",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1171,
+      "opened_at": "2026-06-11T07:01:54Z",
+      "primary_labels": [
+        "kernel:misc",
+        "model:deepseek",
+        "open_pr",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:deepseek",
+          "matched": "DSV3",
+          "pattern": "\\b(deepseek|ds[-_. ]?v[34]|dsv[34]|deepseek[-_ ]?r1|dsr1)\\b",
+          "rule": "deepseek",
+          "source": "title"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "Add",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "open_pr",
+      "title": "[Sglang atom] [benchmark] Add DSV3.2 & GLM5.1 benchmark/nightly/accuracy",
+      "url": "https://github.com/ROCm/ATOM/pull/1171"
+    },
+    {
+      "author": "ganyi1996ppo",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 47,
+          "changes": 48,
+          "deletions": 1,
+          "filename": "atom/model_ops/layernorm.py",
+          "status": "modified"
+        },
+        {
+          "additions": 72,
+          "changes": 86,
+          "deletions": 14,
+          "filename": "atom/models/minimax_m2.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "66dcdff72f927a6c58a718f4060181e130b26728",
+        "e7aaa612f7a2a6379106e8472de88eedfab30ac1",
+        "c4bc53e7ed7eac764f00d16218b132d6df637b80",
+        "0516f3b9d5273138884d314b73f115fddd35c03b",
+        "536c192fb744081f438f23fc047fb0f6b8078449"
+      ],
+      "labels": [
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:misc"
+      ],
+      "merge_commit_sha": "540353e18257d5569b840cf89dc7e953c3b56c89",
+      "merged_at": "2026-06-11T07:23:27Z",
+      "number": 1169,
+      "opened_at": "2026-06-11T02:11:42Z",
+      "primary_labels": [
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:misc"
+      ],
+      "reasons": [
+        {
+          "label": "component:quantization",
+          "matched": "quant",
+          "pattern": "\\b(quant|fp8|fp4|int4|mxfp|w8a8|awq)\\b",
+          "rule": "quantization-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:misc",
+          "matched": "",
+          "pattern": "no type label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        }
+      ],
+      "state": "merged",
+      "title": "minimax allreduce rmsnorm quant",
+      "url": "https://github.com/ROCm/ATOM/pull/1169"
+    },
+    {
+      "author": "junyyang-amd",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 17,
+          "changes": 18,
+          "deletions": 1,
+          "filename": ".github/workflows/atom-vllm-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 3,
+          "changes": 3,
+          "deletions": 0,
+          "filename": ".gitignore",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "e45dffd8094ce133ea9a5844d767cd176734e38f",
+        "26bd17269dbfcc014656f5b74561784257e4065a",
+        "cf389e1e0331c90a1d62e14c874b4df568fd307f",
+        "8a5dbe7fdde9496723195483d58a41fcd40b57c3",
+        "70075f5d99e3ab6132622b18b5550a4dadb83ef7",
+        "ca2043758ea2c6884f1cf4d6441b84d829758675"
+      ],
+      "labels": [
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:ci-build"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1173,
+      "opened_at": "2026-06-11T08:03:46Z",
+      "primary_labels": [
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:ci-build"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        }
+      ],
+      "state": "open_pr",
+      "title": "[atom-vllm-test] Change atom-vllm-test docker path",
+      "url": "https://github.com/ROCm/ATOM/pull/1173"
+    },
+    {
+      "author": "haoyangli0109",
+      "auxiliary_labels": [
+        "type:tests"
+      ],
+      "changed_files": [
+        {
+          "additions": 10,
+          "changes": 11,
+          "deletions": 1,
+          "filename": "atom/model_loader/loader.py",
+          "status": "modified"
+        },
+        {
+          "additions": 3,
+          "changes": 3,
+          "deletions": 0,
+          "filename": "atom/plugin/config.py",
+          "status": "modified"
+        },
+        {
+          "additions": 30,
+          "changes": 30,
+          "deletions": 0,
+          "filename": "docs/online_quantization_guide.md",
+          "status": "modified"
+        },
+        {
+          "additions": 13,
+          "changes": 13,
+          "deletions": 0,
+          "filename": "docs/vllm_plugin_backend_guide.md",
+          "status": "modified"
+        },
+        {
+          "additions": 43,
+          "changes": 43,
+          "deletions": 0,
+          "filename": "tests/plugin/test_plugin_config_translation.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "a105e90cacc2c74f54fb2320e53c7054b3f4c635",
+        "5b234f7cbb84b1df548205afa95d4fb15e1e3821"
+      ],
+      "labels": [
+        "component:plugin",
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:docs",
+        "type:feature",
+        "type:tests"
+      ],
+      "merge_commit_sha": "034a563286598c6a6e0acd6f9e3d5b01e9eae947",
+      "merged_at": "2026-06-11T08:43:58Z",
+      "number": 1157,
+      "opened_at": "2026-06-10T08:34:14Z",
+      "primary_labels": [
+        "component:plugin",
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:docs",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "vllm_plugin",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "vllm plugin",
+          "pattern": "\\bplugin|vllm.plugin\\b",
+          "rule": "plugin-text",
+          "source": "title"
+        },
+        {
+          "label": "component:quantization",
+          "matched": "quant",
+          "pattern": "quant|fp8|fp4|int4|mxfp|w8a8|awq|marlin",
+          "rule": "quantization",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "Fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        },
+        {
+          "label": "type:docs",
+          "matched": "docs/",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "Support",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        },
+        {
+          "label": "type:tests",
+          "matched": "tests/",
+          "pattern": "(^|/)tests/|test_",
+          "rule": "tests",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "[Fix] Support online quantization for vllm plugin mode",
+      "url": "https://github.com/ROCm/ATOM/pull/1157"
+    },
+    {
+      "author": "ZLkanyo009",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 12,
+          "changes": 12,
+          "deletions": 0,
+          "filename": ".github/benchmark/sglang_models_accuracy.json",
+          "status": "modified"
+        },
+        {
+          "additions": 15,
+          "changes": 15,
+          "deletions": 0,
+          "filename": ".github/workflows/atom-sglang-accuracy-validation.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 10,
+          "changes": 10,
+          "deletions": 0,
+          "filename": "atom/plugin/config.py",
+          "status": "modified"
+        },
+        {
+          "additions": 4,
+          "changes": 4,
+          "deletions": 0,
+          "filename": "atom/plugin/sglang/runtime/__init__.py",
+          "status": "modified"
+        },
+        {
+          "additions": 33,
+          "changes": 33,
+          "deletions": 0,
+          "filename": "atom/plugin/sglang/runtime/load_config_patch.py",
+          "status": "added"
+        }
+      ],
+      "commit_shas": [
+        "e58243d63d78278659deedf14ab2c8e0f9924a31"
+      ],
+      "labels": [
+        "component:plugin",
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "merge_commit_sha": "399fb14ebe23c63452d9bdb583082e879432b1b6",
+      "merged_at": "2026-06-11T09:12:11Z",
+      "number": 1172,
+      "opened_at": "2026-06-11T07:22:47Z",
+      "primary_labels": [
+        "component:plugin",
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "component:quantization",
+          "matched": "quant",
+          "pattern": "\\b(quant|fp8|fp4|int4|mxfp|w8a8|awq)\\b",
+          "rule": "quantization-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "Feat",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "[sgl-atom][Feat] Enable online quant in sgl-atom",
+      "url": "https://github.com/ROCm/ATOM/pull/1172"
+    },
+    {
+      "author": "ganyi1996ppo",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 5,
+          "changes": 16,
+          "deletions": 11,
+          "filename": "atom/plugin/vllm/attention/layer_mla.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "8e77bc4d9bc1403389494a807ce772035e154332"
+      ],
+      "labels": [
+        "component:attention",
+        "component:mla",
+        "component:plugin",
+        "component:quantization",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:misc"
+      ],
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "number": 1176,
+      "opened_at": "2026-06-11T09:12:18Z",
+      "primary_labels": [
+        "component:attention",
+        "component:mla",
+        "component:plugin",
+        "component:quantization",
+        "kernel:misc",
+        "model:general",
+        "open_pr",
+        "type:misc"
+      ],
+      "reasons": [
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:mla",
+          "matched": "mla",
+          "pattern": "mla|latent_attention|sparse_mla",
+          "rule": "mla",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "vllm plugin",
+          "pattern": "\\bplugin|vllm.plugin\\b",
+          "rule": "plugin-text",
+          "source": "title"
+        },
+        {
+          "label": "component:quantization",
+          "matched": "fp8",
+          "pattern": "\\b(quant|fp8|fp4|int4|mxfp|w8a8|awq)\\b",
+          "rule": "quantization-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "open_pr",
+          "matched": "open_pr",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "type:misc",
+          "matched": "",
+          "pattern": "no type label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        }
+      ],
+      "state": "open_pr",
+      "title": "remove unnecessary fp8 scale for vllm plugin",
+      "url": "https://github.com/ROCm/ATOM/pull/1176"
+    },
+    {
+      "author": "PerryZhang01",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": ".github/benchmark/oot_benchmark_models.json",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/benchmark/oot_models_accuracy.json",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": ".github/workflows/atom-vllm-accuracy-validation.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": ".github/workflows/atom-vllm-test.yaml",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "recipes/atom_vllm/GPT-OSS.md",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "107ddf5e92941402e26cce699a1117aadbd83136"
+      ],
+      "labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "merge_commit_sha": "2d214ebc391133138a529d9863a6587df9790aa5",
+      "merged_at": "2026-06-11T09:13:56Z",
+      "number": 1167,
+      "opened_at": "2026-06-10T13:41:13Z",
+      "primary_labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:bugfix",
+        "type:ci-build",
+        "type:docs"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:bugfix",
+          "matched": "fix",
+          "pattern": "\\b(fix|fixed|bug|bugfix|crash|regression|incorrect|wrong|broken)\\b",
+          "rule": "bugfix",
+          "source": "title"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:docs",
+          "matched": ".md",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "[fix](gemm): fix model runner v2",
+      "url": "https://github.com/ROCm/ATOM/pull/1167"
+    },
+    {
+      "author": "Jasen2201",
+      "auxiliary_labels": [
+        "type:tests"
+      ],
+      "changed_files": [
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "atom/mesh/LICENSE",
+          "status": "modified"
+        },
+        {
+          "additions": 11,
+          "changes": 11,
+          "deletions": 0,
+          "filename": "atom/mesh/NOTICE",
+          "status": "added"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/README.md",
+          "status": "modified"
+        },
+        {
+          "additions": 2,
+          "changes": 4,
+          "deletions": 2,
+          "filename": "atom/mesh/src/config/types.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "atom/mesh/src/core/error.rs",
+          "status": "modified"
+        },
+        {
+          "additions": 6,
+          "changes": 13,
+          "deletions": 7,
+          "filename": "atom/mesh/tests/grpc_proto_snapshot.rs",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "e60b1cb1f88fa608e4b835f8aad23813bad32927",
+        "f917caba4ea7fc0ec535a8eb7067e0ad72d1fb7c",
+        "93c43ffc6466261df93f7ca2fb55824e008eea6f",
+        "b15a11d4b681e50025e2caae977bb1e9b4161746",
+        "6ef2ca6d4a0c0f6c70a33b166734972b3ceb509f"
+      ],
+      "labels": [
+        "component:mesh",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:docs",
+        "type:tests"
+      ],
+      "merge_commit_sha": "3ab510370433be1b91133aa6fc78e79628b4f9b8",
+      "merged_at": "2026-06-11T09:31:26Z",
+      "number": 1174,
+      "opened_at": "2026-06-11T08:09:17Z",
+      "primary_labels": [
+        "component:mesh",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:docs"
+      ],
+      "reasons": [
+        {
+          "label": "component:mesh",
+          "matched": "mesh/",
+          "pattern": "atom_mesh|mesh/",
+          "rule": "mesh",
+          "source": "path"
+        },
+        {
+          "label": "component:mesh",
+          "matched": "Mesh",
+          "pattern": "\\batom.mesh|mesh\\b",
+          "rule": "mesh-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:docs",
+          "matched": "README",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        },
+        {
+          "label": "type:tests",
+          "matched": "/tests/",
+          "pattern": "(^|/)tests/|test_",
+          "rule": "tests",
+          "source": "path"
+        }
+      ],
+      "state": "merged",
+      "title": "ATOMesh license compliance",
+      "url": "https://github.com/ROCm/ATOM/pull/1174"
+    },
+    {
+      "author": "wufann",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 1,
+          "changes": 2,
+          "deletions": 1,
+          "filename": "README.md",
+          "status": "modified"
+        },
+        {
+          "additions": 3,
+          "changes": 5,
+          "deletions": 2,
+          "filename": "atom/config.py",
+          "status": "modified"
+        },
+        {
+          "additions": 6,
+          "changes": 8,
+          "deletions": 2,
+          "filename": "atom/model_engine/model_runner.py",
+          "status": "modified"
+        },
+        {
+          "additions": 6,
+          "changes": 7,
+          "deletions": 1,
+          "filename": "atom/model_ops/attentions/aiter_attention.py",
+          "status": "modified"
+        },
+        {
+          "additions": 65,
+          "changes": 72,
+          "deletions": 7,
+          "filename": "atom/models/mimo_v2.py",
+          "status": "renamed"
+        },
+        {
+          "additions": 16,
+          "changes": 29,
+          "deletions": 13,
+          "filename": "atom/models/mimo_v2_mtp.py",
+          "status": "renamed"
+        },
+        {
+          "additions": 2,
+          "changes": 3,
+          "deletions": 1,
+          "filename": "atom/spec_decode/eagle.py",
+          "status": "modified"
+        },
+        {
+          "additions": 41,
+          "changes": 46,
+          "deletions": 5,
+          "filename": "recipes/MiMo-V2.md",
+          "status": "renamed"
+        }
+      ],
+      "commit_shas": [
+        "8712c2a54b838c1f4fabe523644388b4d6afec4e",
+        "7fc50fac5f9fc44d5b7cdc7028af932ba192dfaa",
+        "4695feb8b31d9e08379c8c167fad69e42f0719c0",
+        "ca51c6a80047415f63dcab8008e573ba1dd4b475",
+        "06f9a3ee327cebbc686960e6741a336927f17edb",
+        "a56e7fa3214f3f24df8642a6c2914e5fc2046e10",
+        "40e2a5b219d41ddb621e2c41c81e149353ff38e5",
+        "0915aca452e0e418f41c206dbd808bbcd17bb6eb",
+        "19baca05d5c0dc043ed822dcc070d6e9f4495947",
+        "5f503a127ad9a651c0dd8472bd27ade50aff425e",
+        "798903dd7f7978f7a00ff9845aec3abb39cfd42e",
+        "da42d633fe322eb7762edb8f059744ef18b94159",
+        "e4a5420f42d13c0b6ae76eeed0c37de85bfef9ec"
+      ],
+      "labels": [
+        "backend:aiter",
+        "component:attention",
+        "component:distributed",
+        "component:speculative-decode",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:docs",
+        "type:feature"
+      ],
+      "merge_commit_sha": "654d2487b0e9c26ac3774a477151cd8232940ab1",
+      "merged_at": "2026-06-11T09:33:36Z",
+      "number": 654,
+      "opened_at": "2026-04-28T06:51:59Z",
+      "primary_labels": [
+        "backend:aiter",
+        "component:attention",
+        "component:distributed",
+        "component:speculative-decode",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:docs",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "backend:aiter",
+          "matched": "aiter",
+          "pattern": "aiter",
+          "rule": "aiter",
+          "source": "path"
+        },
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:distributed",
+          "matched": "disagg",
+          "pattern": "\\b(distributed|tensor.parallel|tp|disagg|prefill.decode)\\b",
+          "rule": "distributed-text",
+          "source": "title"
+        },
+        {
+          "label": "component:speculative-decode",
+          "matched": "eagle",
+          "pattern": "speculative|eagle|medusa",
+          "rule": "speculative",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:docs",
+          "matched": ".md",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        },
+        {
+          "label": "type:docs",
+          "matched": "README",
+          "pattern": "(^|/)docs/|README|\\.md$",
+          "rule": "docs",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "Support",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "Support Mimo-v2.5-Pro and Mimo PD disagg with mooncake",
+      "url": "https://github.com/ROCm/ATOM/pull/654"
+    },
+    {
+      "author": "ganyi1996ppo",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 5,
+          "changes": 16,
+          "deletions": 11,
+          "filename": "atom/plugin/vllm/attention/layer_mla.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "8e77bc4d9bc1403389494a807ce772035e154332"
+      ],
+      "labels": [
+        "component:attention",
+        "component:mla",
+        "component:plugin",
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:misc"
+      ],
+      "merge_commit_sha": "e9f62f89241814651da1f26de57ed1428e067eac",
+      "merged_at": "2026-06-11T09:41:48Z",
+      "number": 1177,
+      "opened_at": "2026-06-11T09:12:46Z",
+      "primary_labels": [
+        "component:attention",
+        "component:mla",
+        "component:plugin",
+        "component:quantization",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:misc"
+      ],
+      "reasons": [
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:mla",
+          "matched": "mla",
+          "pattern": "mla|latent_attention|sparse_mla",
+          "rule": "mla",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "vllm plugin",
+          "pattern": "\\bplugin|vllm.plugin\\b",
+          "rule": "plugin-text",
+          "source": "title"
+        },
+        {
+          "label": "component:quantization",
+          "matched": "fp8",
+          "pattern": "\\b(quant|fp8|fp4|int4|mxfp|w8a8|awq)\\b",
+          "rule": "quantization-text",
+          "source": "title"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:misc",
+          "matched": "",
+          "pattern": "no type label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        }
+      ],
+      "state": "merged",
+      "title": "remove unnecessary fp8 scale for vllm plugin",
+      "url": "https://github.com/ROCm/ATOM/pull/1177"
+    },
+    {
+      "author": "xytpai",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 0,
+          "changes": 12,
+          "deletions": 12,
+          "filename": "atom/model_ops/attention_mha.py",
+          "status": "modified"
+        },
+        {
+          "additions": 12,
+          "changes": 92,
+          "deletions": 80,
+          "filename": "atom/models/minimax_m2.py",
+          "status": "modified"
+        },
+        {
+          "additions": 0,
+          "changes": 60,
+          "deletions": 60,
+          "filename": "atom/plugin/vllm/attention/layer_mha.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "728583631f38d72b642852036a4da57aade4be7c",
+        "c061949b66cf5e2d4341e84bff4fbd3211614973",
+        "eacfc948b083f4435134aabbd2c83f334adf8587",
+        "02dc9ed969817e62d375494bf077ad2cca47c3ed",
+        "10b0065d5467f733610c89165866ae5c6ae27ca5"
+      ],
+      "labels": [
+        "component:attention",
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:misc"
+      ],
+      "merge_commit_sha": "24c20cf97643e1fca4e112b5905947c8ee0b6bfb",
+      "merged_at": "2026-06-11T10:19:16Z",
+      "number": 1175,
+      "opened_at": "2026-06-11T08:37:37Z",
+      "primary_labels": [
+        "component:attention",
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:misc"
+      ],
+      "reasons": [
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:misc",
+          "matched": "",
+          "pattern": "no type label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        }
+      ],
+      "state": "merged",
+      "title": "Xyt/minimax qknorm ar fix2",
+      "url": "https://github.com/ROCm/ATOM/pull/1175"
+    },
+    {
+      "author": "qichu-yun",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 45,
+          "changes": 60,
+          "deletions": 15,
+          "filename": "atom/model_ops/attention_mla.py",
+          "status": "modified"
+        },
+        {
+          "additions": 84,
+          "changes": 108,
+          "deletions": 24,
+          "filename": "atom/models/deepseek_v2.py",
+          "status": "modified"
+        },
+        {
+          "additions": 13,
+          "changes": 54,
+          "deletions": 41,
+          "filename": "atom/plugin/sglang/models/deepseek_mla_forward.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "ef33e4790b681e99a421c4f41a3c4af7e11f5bd2",
+        "c4ce6e41f64606b702705e06fcf4e7fd6a24ca28",
+        "269fc9ca158d8a6fcd462c96f725e37e302e7025",
+        "1e4ffef25fabe98fe92d8b036c9e39cba069f03a",
+        "35efed6a962a9800cbba822b52fa7b2a46245371",
+        "2b6417ed5cae5cd17db03ee1efb15e4dddc7681d"
+      ],
+      "labels": [
+        "component:attention",
+        "component:mla",
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:feature"
+      ],
+      "merge_commit_sha": "ac435904463067cf6623282c80dac6d0ae2ecfe4",
+      "merged_at": "2026-06-11T12:40:02Z",
+      "number": 1055,
+      "opened_at": "2026-06-03T12:28:40Z",
+      "primary_labels": [
+        "component:attention",
+        "component:mla",
+        "component:plugin",
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "component:attention",
+          "matched": "attention",
+          "pattern": "attention|flash_attn|paged_attention",
+          "rule": "attention",
+          "source": "path"
+        },
+        {
+          "label": "component:mla",
+          "matched": "mla",
+          "pattern": "mla|latent_attention|sparse_mla",
+          "rule": "mla",
+          "source": "path"
+        },
+        {
+          "label": "component:plugin",
+          "matched": "plugin/",
+          "pattern": "plugin/|vllm_plugin",
+          "rule": "plugin",
+          "source": "path"
+        },
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:feature",
+          "matched": "Feat",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "[Feat] Support input_rmsnorm_quant & qknorm_quant fused for Atom dpsk v2 model",
+      "url": "https://github.com/ROCm/ATOM/pull/1055"
+    },
+    {
+      "author": "ZhangLirong-amd",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 7,
+          "changes": 7,
+          "deletions": 0,
+          "filename": ".github/benchmark/models.json",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "66da6290642d83839b506591473964fca49f5e21"
+      ],
+      "labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "merge_commit_sha": "63ef4eb0b5e901d7e05589f0e8f1c39a285eff80",
+      "merged_at": "2026-06-11T12:41:02Z",
+      "number": 1178,
+      "opened_at": "2026-06-11T09:30:01Z",
+      "primary_labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:ci-build",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:ci-build",
+          "matched": ".github/",
+          "pattern": "^\\.github/|Dockerfile|requirements|setup\\.py|pyproject\\.toml",
+          "rule": "ci-build",
+          "source": "path"
+        },
+        {
+          "label": "type:feature",
+          "matched": "add",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "add DPA TBO in benchmark",
+      "url": "https://github.com/ROCm/ATOM/pull/1178"
+    },
+    {
+      "author": "xytpai",
+      "auxiliary_labels": [],
+      "changed_files": [
+        {
+          "additions": 23,
+          "changes": 42,
+          "deletions": 19,
+          "filename": "atom/models/minimax_m2.py",
+          "status": "modified"
+        }
+      ],
+      "commit_shas": [
+        "615bbec435031dcc0f8e17ecc180923594fb74f3"
+      ],
+      "labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:feature"
+      ],
+      "merge_commit_sha": "8e16e5e4eb89a36bf80a60fc267b5cf7c9ac37b0",
+      "merged_at": "2026-06-11T12:41:07Z",
+      "number": 1180,
+      "opened_at": "2026-06-11T11:34:53Z",
+      "primary_labels": [
+        "kernel:misc",
+        "merged",
+        "model:general",
+        "type:feature"
+      ],
+      "reasons": [
+        {
+          "label": "kernel:misc",
+          "matched": "",
+          "pattern": "no kernel label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "merged",
+          "matched": "merged",
+          "pattern": "state",
+          "rule": "pull-request-state",
+          "source": "state"
+        },
+        {
+          "label": "model:general",
+          "matched": "",
+          "pattern": "no model label matched",
+          "rule": "fallback",
+          "source": "fallback"
+        },
+        {
+          "label": "type:feature",
+          "matched": "support",
+          "pattern": "\\b(feat|feature|add|adds|added|new|support|enable|implement)\\b",
+          "rule": "feature",
+          "source": "title"
+        }
+      ],
+      "state": "merged",
+      "title": "support minimax tp1 qknorm rope fusion",
+      "url": "https://github.com/ROCm/ATOM/pull/1180"
+    }
+  ],
+  "rule_version": 1,
+  "source_repo": "ROCm/ATOM",
+  "summary": {
+    "auxiliary_label_counts": {
+      "type:tests": 7
+    },
+    "label_counts": {
+      "arch:gfx950": 1,
+      "backend:aiter": 7,
+      "backend:gluon": 2,
+      "backend:triton": 3,
+      "component:attention": 15,
+      "component:distributed": 2,
+      "component:frontend": 1,
+      "component:kernels": 2,
+      "component:mesh": 5,
+      "component:mla": 8,
+      "component:moe": 3,
+      "component:mtp": 1,
+      "component:plugin": 17,
+      "component:quantization": 12,
+      "component:speculative-decode": 1,
+      "hardware:amd": 1,
+      "kernel:misc": 59,
+      "merged": 41,
+      "model:deepseek": 8,
+      "model:general": 50,
+      "model:gpt-oss": 1,
+      "open_pr": 18,
+      "type:bugfix": 16,
+      "type:ci-build": 23,
+      "type:docs": 16,
+      "type:feature": 26,
+      "type:misc": 5,
+      "type:perf": 3,
+      "type:refactor": 1,
+      "type:tests": 7
+    },
+    "primary_label_counts": {
+      "arch:gfx950": 1,
+      "backend:aiter": 7,
+      "backend:gluon": 2,
+      "backend:triton": 3,
+      "component:attention": 15,
+      "component:distributed": 2,
+      "component:frontend": 1,
+      "component:kernels": 2,
+      "component:mesh": 5,
+      "component:mla": 8,
+      "component:moe": 3,
+      "component:mtp": 1,
+      "component:plugin": 17,
+      "component:quantization": 12,
+      "component:speculative-decode": 1,
+      "hardware:amd": 1,
+      "kernel:misc": 59,
+      "merged": 41,
+      "model:deepseek": 8,
+      "model:general": 50,
+      "model:gpt-oss": 1,
+      "open_pr": 18,
+      "type:bugfix": 16,
+      "type:ci-build": 23,
+      "type:docs": 16,
+      "type:feature": 26,
+      "type:misc": 5,
+      "type:perf": 3,
+      "type:refactor": 1
+    },
+    "state_counts": {
+      "merged": 41,
+      "open_pr": 18
+    },
+    "total_commits": 195,
+    "total_files": 280,
+    "total_prs": 59
+  },
+  "unclassified": []
+}
