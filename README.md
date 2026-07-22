@@ -52,12 +52,15 @@ repos are best generated in GitHub Actions, whose built-in token can read them.
 
 `inferadar-summarize` reads each changelog JSON and writes a digest next to it
 (`changelogs/<window>/<repo>.md`). It is idempotent: a `.md` is only
-(re)generated when its `.json` is newer, or with `--force`.
+(re)generated when its recorded JSON SHA-256 fingerprint differs, or with
+`--force`. Digests created before fingerprints were introduced are recognized
+by their source `generated_at` value.
 
 ```bash
 python -m pip install -e ".[llm]"
 
 inferadar-summarize --changelogs-dir changelogs            # all windows, missing/stale only
+inferadar-summarize --changelogs-dir changelogs --since 2026-06-28
 inferadar-summarize --window latest --force                # rebuild the newest window
 inferadar-summarize --start 2026-06-01 --end 2026-06-08    # one specific window
 inferadar-summarize --only AITER --window latest           # a single repo
@@ -74,11 +77,13 @@ Keep these values in a local environment file, never in the repo (see
 | `INFERADAR_LLM_API_KEY` | yes | Credential for the endpoint |
 | `INFERADAR_LLM_MODEL` | yes | Model name served by the endpoint |
 | `INFERADAR_LLM_AUTH_HEADER` | no | Auth header name (default `Authorization`) |
-| `INFERADAR_LLM_AUTH_PREFIX` | no | Value prefix (default `Bearer `; set empty for a bare key) |
+| `INFERADAR_LLM_AUTH_PREFIX` | no | Value prefix (default `Bearer `; use an empty value on POSIX or `__EMPTY__` on Windows for a bare key) |
 | `INFERADAR_LLM_TIMEOUT` | no | Read timeout seconds (default 300) |
 | `INFERADAR_LLM_MAX_TOKENS` | no | Output token budget (default 64000) |
 | `INFERADAR_LLM_MAX_TOKENS_CAP` | no | Ceiling for the empty-content retry (default 64000) |
 | `INFERADAR_LLM_EMPTY_RETRIES` | no | Extra attempts on empty content, escalating the budget (default 2) |
+| `INFERADAR_LLM_HTTP_RETRIES` | no | Extra attempts on transient network/408/409/425/429/5xx failures (default 3) |
+| `INFERADAR_LLM_RETRY_BASE_SECONDS` | no | Initial exponential-backoff delay (default 2 seconds, capped at 30) |
 
 Reasoning models can spend part of the output budget on hidden "thinking", which
 may leave zero visible text on a tight budget; the default budget is generous and
@@ -134,6 +139,45 @@ repos:
 - The markdown stage runs off GitHub on a schedule (`deploy/run-inferadar.sh`,
   with a sample systemd service/timer in `deploy/`). It needs the LLM endpoint
   config and a git push credential; see the comments in `deploy/` for setup.
+
+### Windows laptop automation
+
+Windows uses a native PowerShell backlog runner and a per-user Scheduled Task:
+
+```powershell
+cd C:\infeRadar
+powershell.exe -NoProfile -ExecutionPolicy Bypass `
+  -File .\deploy\install-windows-task.ps1
+
+# Fill in the gateway values in the private file printed by the installer, then:
+Enable-ScheduledTask -TaskName "InfeRadar Markdown Summaries"
+Start-ScheduledTask -TaskName "InfeRadar Markdown Summaries"
+```
+
+The private config is `%LOCALAPPDATA%\InfeRadar\inferadar.env`; its ACL is
+restricted to the current user. Set `INFERADAR_SUMMARY_SINCE` there to keep
+intentional historical/manual JSON windows out of the backlog. Logs are written
+under `%LOCALAPPDATA%\InfeRadar\logs`.
+
+The task runs at logon and every 24 hours, starts missed work when Windows is
+available again, and ignores overlapping invocations. Each run scans every
+eligible JSON rather than only the latest window, commits successful summaries
+even when another file fails, and leaves failures in the backlog for a later
+retry. It can therefore catch up after sleep, shutdown, VPN loss, gateway
+outage, or a transient push failure. It cannot execute while the laptop is off,
+and VPN-dependent work waits until the laptop is awake and the VPN is connected.
+
+Useful commands:
+
+```powershell
+Get-ScheduledTask -TaskName "InfeRadar Markdown Summaries"
+Get-ScheduledTaskInfo -TaskName "InfeRadar Markdown Summaries"
+Start-ScheduledTask -TaskName "InfeRadar Markdown Summaries"
+Get-Content "$env:LOCALAPPDATA\InfeRadar\logs\stage2-$(Get-Date -Format yyyy-MM-dd).log" -Wait
+
+# One-repository smoke test; creates a local commit but does not push it.
+.\deploy\run-inferadar.ps1 -Only AITER -Limit 1 -SkipPush
+```
 
 ## Security
 

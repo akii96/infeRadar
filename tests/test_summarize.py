@@ -117,6 +117,14 @@ def test_build_markdown_header_footer_and_sanitization() -> None:
     assert "deterministic source of truth" in md
 
 
+def test_build_markdown_repairs_missing_more_changes_heading() -> None:
+    md = build_markdown(
+        _artifact(),
+        llm=lambda *_: "## TL;DR\n- body\n\n<details>\n<summary>Tests (1)</summary>\n</details>",
+    )
+    assert "\n## More changes by area\n\n<details>" in md
+
+
 def test_summarize_artifact_file_idempotent(tmp_path) -> None:
     window = tmp_path / "changelogs" / "2026-06-01_to_2026-06-08"
     window.mkdir(parents=True)
@@ -133,27 +141,52 @@ def test_summarize_artifact_file_idempotent(tmp_path) -> None:
     path, status = summarize_artifact_file(json_path, llm=fake_llm)
     assert status == "written"
     assert path == md_path and md_path.exists()
+    assert "inferadar-source-sha256:" in md_path.read_text(encoding="utf-8")
     assert len(calls) == 1
 
-    # md newer than json -> skip
-    os.utime(json_path, (1000, 1000))
-    os.utime(md_path, (2000, 2000))
+    # Fingerprint match skips regardless of checkout/touch timestamps.
+    os.utime(json_path, (3000, 3000))
+    os.utime(md_path, (1000, 1000))
     _, status = summarize_artifact_file(json_path, llm=fake_llm)
     assert status == "skipped"
     assert len(calls) == 1
 
-    # json newer than md -> regenerate
-    os.utime(json_path, (3000, 3000))
+    # Any JSON content change invalidates the digest, even with an older mtime.
+    changed = _artifact()
+    changed["prs"][0]["title"] = "Changed source content"
+    json_path.write_text(json.dumps(changed), encoding="utf-8")
+    os.utime(json_path, (500, 500))
     _, status = summarize_artifact_file(json_path, llm=fake_llm)
     assert status == "written"
     assert len(calls) == 2
 
-    # force regardless of mtimes
-    os.utime(json_path, (1000, 1000))
-    os.utime(md_path, (9000, 9000))
+    # force regardless of fingerprint
     _, status = summarize_artifact_file(json_path, llm=fake_llm, force=True)
     assert status == "written"
     assert len(calls) == 3
+    assert not list(window.glob(".*.tmp"))
+
+
+def test_summarize_accepts_legacy_generated_at_marker(tmp_path) -> None:
+    window = tmp_path / "changelogs" / "2026-06-01_to_2026-06-08"
+    window.mkdir(parents=True)
+    json_path = window / "AITER.json"
+    json_path.write_text(json.dumps(_artifact()), encoding="utf-8")
+    md_path = window / "AITER.md"
+    md_path.write_text(
+        build_markdown(
+            _artifact(),
+            display_name="AITER",
+            llm=lambda *_: "## TL;DR\n- existing digest",
+        ),
+        encoding="utf-8",
+    )
+
+    _, status = summarize_artifact_file(
+        json_path,
+        llm=lambda *_: pytest.fail("legacy matching digest should be skipped"),
+    )
+    assert status == "skipped"
 
 
 def test_find_target_jsons_window_selection(tmp_path) -> None:
@@ -168,6 +201,7 @@ def test_find_target_jsons_window_selection(tmp_path) -> None:
     (root / "legacy.json").write_text("{}", encoding="utf-8")
 
     assert len(find_target_jsons(root, window="all")) == 4
+    assert len(find_target_jsons(root, window="all", since="2026-06-01")) == 2
 
     latest = find_target_jsons(root, window="latest")
     assert len(latest) == 2
@@ -242,7 +276,13 @@ def _set_llm_env(monkeypatch, **overrides) -> None:
     monkeypatch.setenv("INFERADAR_LLM_BASE_URL", "https://gw/v1")
     monkeypatch.setenv("INFERADAR_LLM_API_KEY", "k")
     monkeypatch.setenv("INFERADAR_LLM_MODEL", "m")
-    for key in ("INFERADAR_LLM_MAX_TOKENS", "INFERADAR_LLM_MAX_TOKENS_CAP", "INFERADAR_LLM_EMPTY_RETRIES"):
+    for key in (
+        "INFERADAR_LLM_MAX_TOKENS",
+        "INFERADAR_LLM_MAX_TOKENS_CAP",
+        "INFERADAR_LLM_EMPTY_RETRIES",
+        "INFERADAR_LLM_HTTP_RETRIES",
+        "INFERADAR_LLM_RETRY_BASE_SECONDS",
+    ):
         monkeypatch.delenv(key, raising=False)
     for key, val in overrides.items():
         monkeypatch.setenv(key, val)
@@ -296,6 +336,29 @@ def test_call_llm_fast_fails_on_content_filter(monkeypatch) -> None:
     assert calls["n"] == 1  # non-budget reason: no escalation
 
 
+def test_call_llm_retries_transient_gateway_errors(monkeypatch) -> None:
+    _set_llm_env(
+        monkeypatch,
+        INFERADAR_LLM_HTTP_RETRIES="3",
+        INFERADAR_LLM_RETRY_BASE_SECONDS="0.25",
+    )
+    calls = {"n": 0}
+    sleeps: list[float] = []
+
+    def transient_then_ok(*args, **kwargs):
+        calls["n"] += 1
+        if calls["n"] < 3:
+            raise summarize._TransientGatewayError("temporary")
+        return "ok"
+
+    monkeypatch.setattr(summarize, "_chat_once", transient_then_ok)
+    monkeypatch.setattr(summarize.time, "sleep", sleeps.append)
+
+    assert summarize.call_llm("sys", "usr") == "ok"
+    assert calls["n"] == 3
+    assert sleeps == [0.25, 0.5]
+
+
 def test_call_llm_invalid_env_int(monkeypatch) -> None:
     _set_llm_env(monkeypatch, INFERADAR_LLM_MAX_TOKENS_CAP="not-a-number")
     monkeypatch.setattr(summarize, "_chat_once", lambda *a, **k: "x")
@@ -319,6 +382,12 @@ def test_auth_headers_custom_bare_key(monkeypatch) -> None:
     assert "Authorization" not in headers
 
 
+def test_auth_headers_windows_empty_prefix_sentinel(monkeypatch) -> None:
+    monkeypatch.setenv("INFERADAR_LLM_AUTH_HEADER", "X-Custom-Key")
+    monkeypatch.setenv("INFERADAR_LLM_AUTH_PREFIX", "__EMPTY__")
+    assert summarize._auth_headers("KEY")["X-Custom-Key"] == "KEY"
+
+
 def test_main_validates_and_handles_empty(tmp_path) -> None:
     root = tmp_path / "changelogs"
     (root / "2026-06-01_to_2026-06-08").mkdir(parents=True)
@@ -328,3 +397,25 @@ def test_main_validates_and_handles_empty(tmp_path) -> None:
     empty = tmp_path / "empty"
     empty.mkdir()
     assert summarize.main(["--changelogs-dir", str(empty)]) == 0
+    assert summarize.main(["--changelogs-dir", str(empty), "--since", "not-a-date"]) == 2
+
+
+def test_main_reports_partial_batch_failure(monkeypatch, tmp_path) -> None:
+    root = tmp_path / "changelogs"
+    window = root / "2026-06-01_to_2026-06-08"
+    window.mkdir(parents=True)
+    good = _artifact()
+    bad = _artifact()
+    bad["source_repo"] = "vllm-project/vllm"
+    (window / "AITER.json").write_text(json.dumps(good), encoding="utf-8")
+    (window / "vllm.json").write_text(json.dumps(bad), encoding="utf-8")
+
+    def one_fails(system: str, user: str, **kwargs) -> str:
+        if "vllm-project/vllm" in user:
+            raise RuntimeError("gateway failed")
+        return "## TL;DR\n- generated"
+
+    monkeypatch.setattr(summarize, "call_llm", one_fails)
+    assert summarize.main(["--changelogs-dir", str(root)]) == 1
+    assert (window / "AITER.md").exists()
+    assert not (window / "vllm.md").exists()

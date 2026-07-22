@@ -10,7 +10,7 @@
 # pushing and retry a few times in case Actions pushed concurrently.
 #
 # Usage:
-#   deploy/run-inferadar.sh                          # summarize the latest window
+#   deploy/run-inferadar.sh                          # summarize the eligible backlog
 #   deploy/run-inferadar.sh 2026-06-06 2026-06-10    # a specific window (both dates)
 #
 # Config (environment, normally via /etc/inferadar/inferadar.env):
@@ -18,6 +18,7 @@
 #   INFERADAR_LLM_AUTH_HEADER, INFERADAR_LLM_AUTH_PREFIX, INFERADAR_LLM_MAX_TOKENS
 #   PYTHON                   python interpreter with inferadar installed (default: python3)
 #   INFERADAR_ENV_FILE       env file to source for manual runs (default: /etc/inferadar/inferadar.env)
+#   INFERADAR_SUMMARY_SINCE  earliest window start to process (YYYY-MM-DD)
 #   INFERADAR_SKIP_PUSH=1    generate + commit but do not push (testing)
 #
 # Note: this stage does NOT call the GitHub API (no GITHUB_TOKEN needed). It only
@@ -65,36 +66,41 @@ log "Markdown stage start (repo: ${REPO_DIR}, python: ${PYTHON})"
 log "git pull --rebase"
 git pull --rebase --autostash origin main
 
-# 2) Generate markdown for JSON that lacks an up-to-date .md (idempotent).
-sum_args=(--changelogs-dir changelogs)
+# 2) Generate markdown for every eligible JSON that lacks an up-to-date .md.
+# Scanning the backlog (rather than only "latest") makes a missed or partial run
+# self-healing after the host or gateway comes back.
+sum_args=(--changelogs-dir changelogs --window all)
 if [[ -n "${START}" && -n "${END}" ]]; then
   sum_args+=(--start "${START}" --end "${END}")
-else
-  sum_args+=(--window latest)
+elif [[ -n "${INFERADAR_SUMMARY_SINCE:-}" ]]; then
+  sum_args+=(--since "${INFERADAR_SUMMARY_SINCE}")
 fi
 log "inferadar-summarize ${sum_args[*]}"
+set +e
 "${PYTHON}" -m inferadar.summarize "${sum_args[@]}"
+summary_status=$?
+set -e
 
 # 3) Commit only the markdown (disjoint from the Actions JSON commits).
-if [[ -z "$(git status --porcelain -- changelogs)" ]]; then
+if [[ -z "$(git status --porcelain -- ':(glob)changelogs/**/*.md')" ]]; then
   log "No new summaries to commit."
-  exit 0
+  exit "${summary_status}"
 fi
-git add changelogs/
+git add -- ':(glob)changelogs/**/*.md'
 git commit -m "Add changelog summaries"
 
 if [[ "${INFERADAR_SKIP_PUSH:-0}" == "1" ]]; then
   log "INFERADAR_SKIP_PUSH=1 set; not pushing."
-  exit 0
+  exit "${summary_status}"
 fi
 
 # 4) Push, rebasing onto any concurrent Actions JSON push (disjoint = clean).
 for attempt in 1 2 3; do
-  if git push; then
+  if git push origin HEAD:main; then
     log "Pushed."
     log "Markdown stage done."
     git log --oneline -1
-    exit 0
+    exit "${summary_status}"
   fi
   log "Push rejected (attempt ${attempt}); rebasing on latest and retrying."
   git pull --rebase --autostash origin main
