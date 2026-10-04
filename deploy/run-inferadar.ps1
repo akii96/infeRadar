@@ -114,7 +114,6 @@ function Invoke-Stage2 {
     }
 
     foreach ($required in @(
-        "INFERADAR_LLM_BASE_URL",
         "INFERADAR_LLM_API_KEY",
         "INFERADAR_LLM_MODEL"
     )) {
@@ -149,6 +148,11 @@ function Invoke-Stage2 {
         }
     }
 
+    if ([string]::IsNullOrWhiteSpace($env:INFERADAR_LLM_BASE_URL)) {
+        # Same default as inferadar.summarize: the AMD Unified gateway.
+        $env:INFERADAR_LLM_BASE_URL = "https://llm-api.amd.com/Unified/v1"
+    }
+    Write-Log "LLM gateway: $($env:INFERADAR_LLM_BASE_URL) model: $($env:INFERADAR_LLM_MODEL)"
     $gatewayUri = [uri]$env:INFERADAR_LLM_BASE_URL
     if (-not (Test-GatewayTcp -Uri $gatewayUri)) {
         Write-Log "Gateway is unreachable; leaving backlog untouched for the next scheduled retry."

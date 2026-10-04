@@ -73,7 +73,7 @@ Keep these values in a local environment file, never in the repo (see
 
 | Variable | Required | Notes |
 | --- | --- | --- |
-| `INFERADAR_LLM_BASE_URL` | yes | Base URL incl. version path; client POSTs to `{BASE_URL}/chat/completions` |
+| `INFERADAR_LLM_BASE_URL` | no | Base URL incl. version path; client POSTs to `{BASE_URL}/chat/completions` (default `https://llm-api.amd.com/Unified/v1`) |
 | `INFERADAR_LLM_API_KEY` | yes | Credential for the endpoint |
 | `INFERADAR_LLM_MODEL` | yes | Model name served by the endpoint |
 | `INFERADAR_LLM_AUTH_HEADER` | no | Auth header name (default `Authorization`) |

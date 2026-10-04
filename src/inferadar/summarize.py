@@ -9,9 +9,10 @@ grouped by type of work, which do not count toward the read budget.
 
 The LLM is reached through any OpenAI-compatible chat-completions endpoint (for
 example an internal company gateway), configured entirely via environment
-variables so no provider, base URL, key, or model name is ever hard-coded:
+variables so no provider, key, or model name is ever hard-coded:
 
-    INFERADAR_LLM_BASE_URL   base URL incl. version path, e.g. https://gw.internal/v1
+    INFERADAR_LLM_BASE_URL   base URL incl. version path
+                             (default: the AMD Unified gateway, https://llm-api.amd.com/Unified/v1)
     INFERADAR_LLM_API_KEY    bearer token for the gateway
     INFERADAR_LLM_MODEL      model name served by the gateway
     INFERADAR_LLM_TIMEOUT    optional read timeout in seconds (default 300)
@@ -50,6 +51,9 @@ ENV_RETRY_BASE_SECONDS = "INFERADAR_LLM_RETRY_BASE_SECONDS"
 ENV_AUTH_HEADER = "INFERADAR_LLM_AUTH_HEADER"
 ENV_AUTH_PREFIX = "INFERADAR_LLM_AUTH_PREFIX"
 
+# The AMD LLM gateway's vendor-agnostic endpoint: one OpenAI-compatible client
+# reaches GPT, Claude, Gemini, and on-prem models by changing only the model name.
+DEFAULT_BASE_URL = "https://llm-api.amd.com/Unified/v1"
 DEFAULT_TIMEOUT = 300.0
 # Default to a generous budget so reasoning models (whose "thinking" tokens count
 # against the output budget) don't return empty content. Override per model via
@@ -362,7 +366,7 @@ def call_llm(
     max_tokens: int | None = None,
 ) -> str:
     """Call any OpenAI-compatible chat-completions endpoint. Config via env by default."""
-    base_url = (base_url or os.getenv(ENV_BASE_URL, "")).strip().rstrip("/")
+    base_url = (base_url or os.getenv(ENV_BASE_URL, "") or DEFAULT_BASE_URL).strip().rstrip("/")
     api_key = (api_key or os.getenv(ENV_API_KEY, "")).strip()
     model = (model or os.getenv(ENV_MODEL, "")).strip()
     if not base_url:
